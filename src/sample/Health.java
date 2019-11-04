@@ -8,8 +8,8 @@ public class Health {
 
     public Health(int blood) {
         this.blood = blood;
-        imgBlood = new image("file:blood.png");
-        imgBleed = new image("file:bleed.png");
+        imgBlood = new image("file:images\\blood.png");
+        imgBleed = new image("file:images\\bleed.png");
         bleed =0;
     }
     public void  enemyBleed(int bleed)

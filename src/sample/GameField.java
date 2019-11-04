@@ -38,7 +38,7 @@ public class GameField {
         {
             for(int j=0;j<Config.width_amountimage;j++)
             {
-                gameEntities[i][j] = new GameEntity(new image("file:"+arrmap[i][j]+".png"));
+                gameEntities[i][j] = new GameEntity(new image("file:images\\"+arrmap[i][j]+".png"));
             }
         }
     }
