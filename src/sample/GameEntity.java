@@ -1,6 +1,10 @@
 package sample;
 
-public class GameEntity {
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+public class GameEntity extends Pane {
    protected image image = new image();
    protected double width; // chiều rộng ảnh in
    protected double height;// chiều cao ảnh in
@@ -26,7 +30,7 @@ public class GameEntity {
         this.image = image;
     }
     // getter && setter
-    public sample.image getImage() {
+    public sample.image getimage() {
         return image;
     }
 
@@ -34,7 +38,7 @@ public class GameEntity {
         this.image = image;
     }
 
-    public double getWidth() {
+    public double getwidth() {
         return width;
     }
 
@@ -42,7 +46,7 @@ public class GameEntity {
         this.width = width;
     }
 
-    public double getHeight() {
+    public double getheight() {
         return height;
     }
 
@@ -50,20 +54,19 @@ public class GameEntity {
         this.height = height;
     }
 
-    public int getX() {
+    public int getx() {
         return x;
     }
 
-    public void setX(int x) {
+    public void sety(int x) {
         this.x = x;
     }
 
-    public int getY() {
+    public int gety() {
         return y;
     }
 
     public void setY(int y) {
         this.y = y;
     }
-
 }

@@ -1,0 +1,25 @@
+        Circle circle = new Circle(10);
+        image image = new image("file:images\\bullet.png");
+        Path path = new Path();
+        MoveTo moveTo = new MoveTo(10, 10);
+        LineTo line1 = new LineTo(100, 100);
+        //getElements
+        path.getElements().add(moveTo);
+        path.getElements().addAll(line1);
+        //PathTransition
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(1000));
+        pathTransition.setNode(circle);
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(100);
+
+        //Setting auto reverse value to true
+        pathTransition.setAutoReverse(false);
+        //Playing the animation
+        pathTransition.play();
+
+        Config.group.getChildren().add(circle);
+        Config.pane.getChildren().add(Config.group);
+        primaryStage.setScene(Config.scene);
+        primaryStage.show();

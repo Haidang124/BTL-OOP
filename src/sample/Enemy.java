@@ -65,10 +65,23 @@ public class Enemy extends GameEntity {
     {
         image.show(stage,x_now,y_now);
         health.getImgBlood().show(stage,x_now,y_now);
-
+        Timeline timeline1 = new
+                Timeline(new KeyFrame(Duration.millis(1000),
+                (evt)->{
+                    Bullet1 bullet2 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
+                    bullet2.shoot(stage,72*5,72*3,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
+                    Bullet1 bullet3 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
+                    bullet3.shoot(stage,72,72*5,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
+                    Bullet1 bullet4 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
+                    bullet4.shoot(stage,72*9,72*2,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
+                }
+        ));
+        timeline1.setCycleCount(Animation.INDEFINITE);
+        timeline1.play();
         Timeline timeline = new
                 Timeline(new KeyFrame(Duration.millis(10),
                 (evt)->{
+
                        try
                        {
                            String way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);

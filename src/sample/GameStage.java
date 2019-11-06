@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.util.Stack;
 
 public class GameStage {
-    public static int x =0;
-    public static int y=startPosition();
+    public static final int x =0;
+    public static final int y=startPosition();
     public static int countEnemy;
     public String[] arrEnemy = new String[countEnemy];
+    public Stack<Enemy> stackEnemy1 = new Stack<>();
     public Stack<String> stackEnemy = new Stack<>();
     public GameStage( int countEnemy) {
         this.countEnemy = countEnemy;
@@ -29,7 +30,23 @@ public class GameStage {
     {
          BufferedReader buffread = new BufferedReader (new FileReader(namefile));
          arrEnemy = buffread.readLine().split(" ");
-         for(int i=0;i<countEnemy;i++) stackEnemy.push(arrEnemy[i]);
+         for(int i=0;i<countEnemy;i++)
+         {
+             stackEnemy.push(arrEnemy[i]);
+             if(arrEnemy[i].equals("1"))
+             {
+                 stackEnemy1.push(new SmallerEnemy());
+
+             }
+             else if(arrEnemy[i].equals("2"))
+             {
+                 stackEnemy1.push(new NormalEnemy());
+             }
+             else
+             {
+                 stackEnemy1.push(new TankerEnemy());
+             }
+         }
     }
     public void StartGame()
     {
