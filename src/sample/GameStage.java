@@ -8,13 +8,35 @@ import java.util.Stack;
 public class GameStage {
     public static final int x =0;
     public static final int y=startPosition();
-    public static int countEnemy;
+    private static int countEnemy;
     public String[] arrEnemy = new String[countEnemy];
-    public Stack<Enemy> stackEnemy1 = new Stack<>();
-    public Stack<String> stackEnemy = new Stack<>();
+    public Stack<Enemy> stackEnemy = new Stack<>();
     public GameStage( int countEnemy) {
         this.countEnemy = countEnemy;
+    }
 
+    public static int getCountEnemy() {
+        return countEnemy;
+    }
+
+    public static void setCountEnemy(int countEnemy) {
+        GameStage.countEnemy = countEnemy;
+    }
+
+    public String[] getArrEnemy() {
+        return arrEnemy;
+    }
+
+    public void setArrEnemy(String[] arrEnemy) {
+        this.arrEnemy = arrEnemy;
+    }
+
+    public Stack<Enemy> getStackEnemy() {
+        return stackEnemy;
+    }
+
+    public void setStackEnemy(Stack<Enemy> stackEnemy) {
+        this.stackEnemy = stackEnemy;
     }
 
     public static int startPosition()
@@ -32,19 +54,18 @@ public class GameStage {
          arrEnemy = buffread.readLine().split(" ");
          for(int i=0;i<countEnemy;i++)
          {
-             stackEnemy.push(arrEnemy[i]);
              if(arrEnemy[i].equals("1"))
              {
-                 stackEnemy1.push(new SmallerEnemy());
+                 stackEnemy.push(new SmallerEnemy());
 
              }
              else if(arrEnemy[i].equals("2"))
              {
-                 stackEnemy1.push(new NormalEnemy());
+                 stackEnemy.push(new NormalEnemy());
              }
              else
              {
-                 stackEnemy1.push(new TankerEnemy());
+                 stackEnemy.push(new TankerEnemy());
              }
          }
     }

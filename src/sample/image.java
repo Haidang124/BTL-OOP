@@ -11,7 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
- class image extends ImageView {
+ class image {
     private Image image;
     private ImageView imageView;
 
@@ -42,11 +42,12 @@ import javafx.stage.Stage;
     }
     //get && set
 
-     public Image getimage() {
+
+     public Image getImage() {
          return image;
      }
 
-     public void setimage(Image image) {
+     public void setImage(Image image) {
          this.image = image;
      }
 
@@ -59,7 +60,7 @@ import javafx.stage.Stage;
      }
 
      // method
-    void show(Stage stage,double x,double y)
+    public void show(Stage stage,double x,double y)
     {
         imageView = new ImageView(image);
         changePosition(x,y);
@@ -68,10 +69,14 @@ import javafx.stage.Stage;
         stage.show();
 
     }
-    void changePosition(/* position  pos */double x,double y)
+    public void changePosition(/* position  pos */double x,double y)
     {
             imageView.setX(x);
             imageView.setY(y);
+    }
+    public void remote()
+    {
+        imageView.imageProperty().set(null);
     }
 
 }

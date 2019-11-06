@@ -65,21 +65,17 @@ public class Enemy extends GameEntity {
     {
         image.show(stage,x_now,y_now);
         health.getImgBlood().show(stage,x_now,y_now);
-        Timeline timeline1 = new
+       /* Timeline timeline1 = new
                 Timeline(new KeyFrame(Duration.millis(1000),
                 (evt)->{
-                    Bullet1 bullet2 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
+                    Bullet bullet2 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
                     bullet2.shoot(stage,72*5,72*3,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
-                    Bullet1 bullet3 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
-                    bullet3.shoot(stage,72,72*5,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
-                    Bullet1 bullet4 = new Bullet1(new image("file:images\\bullet.png"),100,100,100);
-                    bullet4.shoot(stage,72*9,72*2,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
                 }
         ));
         timeline1.setCycleCount(Animation.INDEFINITE);
-        timeline1.play();
+        timeline1.play();*/
         Timeline timeline = new
-                Timeline(new KeyFrame(Duration.millis(10),
+                Timeline(new KeyFrame(Duration.millis(40),
                 (evt)->{
 
                        try
@@ -173,9 +169,9 @@ public class Enemy extends GameEntity {
     }
     public void die()
     {
-        image.getImageView().imageProperty().set(null);
+        this.getimage().remote();
         speed = 0;
-        health.getImgBlood().getImageView().imageProperty().set(null);
+        this.getHealth().getImgBlood().remote();
         armor =0;
         bonus=0;
     }
