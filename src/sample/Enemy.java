@@ -13,12 +13,22 @@ public class Enemy extends GameEntity {
     protected Health health;
     protected int armor;
     protected int bonus;
+    protected boolean danger;
+
+    public boolean isDanger() {
+        return danger;
+    }
+
+    public void setDanger(boolean danger) {
+        this.danger = danger;
+    }
 
     public Enemy() {
         speed =0;
         health=null;
         armor =0;
         bonus=0;
+        danger =false;
     }
 
     public Enemy(sample.image image, int speed, Health health, int armor, int bonus) {
@@ -27,6 +37,7 @@ public class Enemy extends GameEntity {
         this.health = health;
         this.armor = armor;
         this.bonus = bonus;
+        this.danger=false;
     }
  // getter && setter
     public int getSpeed() {
@@ -75,9 +86,9 @@ public class Enemy extends GameEntity {
         timeline1.setCycleCount(Animation.INDEFINITE);
         timeline1.play();*/
         Timeline timeline = new
-                Timeline(new KeyFrame(Duration.millis(40),
+                Timeline(new KeyFrame(Duration.millis(20),
                 (evt)->{
-
+                         //Tower.addTarget(this);
                        try
                        {
                            String way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);

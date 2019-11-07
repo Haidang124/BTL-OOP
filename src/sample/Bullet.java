@@ -101,7 +101,7 @@ public class Bullet extends GameEntity {
         else if(x == x_target && y  < y_target) k=2;
         else if(x < x_target && y  == y_target) k=6;
         else if(x > x_target && y  == y_target) k=4;
-        double distance =Math.abs(x-x_target)/250;
+        double distance =Math.abs(x-x_target)/150;
         double angle =Math.abs((x-x_target)/(y-y_target));
         image.show(stage,x,y);
         if(k==3)

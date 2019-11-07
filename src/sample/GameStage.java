@@ -10,7 +10,7 @@ public class GameStage {
     public static final int y=startPosition();
     private static int countEnemy;
     public String[] arrEnemy = new String[countEnemy];
-    public Stack<Enemy> stackEnemy = new Stack<>();
+    public static Stack<Enemy> stackEnemy = new Stack<>();
     public GameStage( int countEnemy) {
         this.countEnemy = countEnemy;
     }
