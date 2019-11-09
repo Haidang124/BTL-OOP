@@ -1,51 +1,53 @@
 package sample;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
 public class Health {
-    private int blood ;
-    private int bleed;
-    private image imgBlood;
-    private image imgBleed;
-
+    private int blood;
+    private Rectangle Blood;
+    private Rectangle Bleed;
     public Health(int blood) {
-        this.blood = blood;
-        imgBlood = new image("file:images\\blood.png");
-        imgBleed = new image("file:images\\bleed.png");
-        bleed =0;
-    }
-    public void  enemyBleed(int bleed)
-    {
-
+        this.blood=blood;
+        Bleed = new Rectangle(0,0,50,5);
+        Blood = new Rectangle(0,0,50,5);
+        Blood.setFill(Color.GREEN);
+        Bleed.setFill(Color.GRAY);
+        Config.pane.getChildren().addAll(Bleed,Blood);
     }
 
     public int getBlood() {
         return blood;
     }
 
+    public void setBlood(Rectangle blood) {
+        Blood = blood;
+    }
+
+    public Rectangle getBleed() {
+        return Bleed;
+    }
+
+    public void setBleed(Rectangle bleed) {
+        Bleed = bleed;
+    }
+
     public void setBlood(int blood) {
         this.blood = blood;
     }
 
-    public int getBleed() {
-        return bleed;
+    public void  showHealth(Stage stage, double x, double y, int health)
+    {
+        Blood.setWidth(health/2);
+        Bleed.setWidth(50);
+        Blood.setTranslateX(x);
+        Blood.setTranslateY(y);
+        Bleed.setTranslateX(x);
+        Bleed.setTranslateY(y);
+        stage.setScene(Config.scene);
     }
 
-    public void setBleed(int bleed) {
-        this.bleed = bleed;
-    }
-
-    public image getImgBlood() {
-        return imgBlood;
-    }
-
-    public void setImgBlood(image imgBlood) {
-        this.imgBlood = imgBlood;
-    }
-
-    public image getImgBleed() {
-        return imgBleed;
-    }
-
-    public void setImgBleed(image imgBleed) {
-        this.imgBleed = imgBleed;
-    }
 }

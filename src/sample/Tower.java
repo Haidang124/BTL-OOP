@@ -49,27 +49,78 @@ public class Tower extends GameEntity {
         super(image, x, y);
         this.bullet = bullet;
     }
-    public void Target (Stack<Enemy> enemyStack, Tower tower) {
+    public static void getTarget ()
+    {
+        for(int i=0;i<count;i++)
+        {
+            if(arrayList.get(i).isDanger()==true)
+            {
+                System.out.println(i+" "+"getTarget");
+                break;
+                //return arrayList.get(i);
+            }
 
+        }
+        //return null;
     }
-
     public static void addTarget (Enemy enemy)
+    {
+       // System.out.println(count+" "+enemy.getimage().getImageView().getX());
+        for(int i=0;i<count;i++)
+        {
+            if(arrayList.get(i)==enemy) return;
+        }
+        if(Tower.canShoot2(72*4.5, 72*4.5, 72*4,enemy)) {
+            arrayList.add(enemy);
+            enemy.setDanger(true);
+            count++;
+        }
+        else
+        {
+            enemy.setDanger(false);
+        }
+    }
+    public static void addTarget1 (Enemy enemy)
     {
         if(enemy.getimage().getImageView() != null)
         {
             if(canShoot1(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5))
             {
                 if(enemy.isDanger() == false) {
-                    arrayList.add(enemy);
-                    count++;
-                    enemy.setDanger(true);
+                    int index=-1;
+                    int me=-1;
+                    for(int i=0;i<count;i++)
+                    {
+                        if(arrayList.get(i).isDanger()==true)
+                        {
+                            index=i;
+                        }
+                        if(arrayList.get(i) == enemy)
+                        {
+                            me=i;
+                        }
+                    }
+                    if(index == -1){
+                        arrayList.add(enemy);
+                        enemy.setDanger(true);
+                        count++;
+                    }
+                    else
+                    {
+                        if(me > index)  arrayList.get(me).setDanger(true);
+                    }
+
                 }
+
             }
             else {
-                if(enemy.isDanger() == true) {
-                    arrayList.remove(enemy);
-                    count--;
-                    enemy.setDanger(false);
+                for(int i=0;i<count;i++)
+                {
+                    if(arrayList.get(i) == enemy)
+                    {
+                        arrayList.get(i+1).setDanger(true);
+                        arrayList.get(i).setDanger(false);
+                    }
                 }
             }
         }
@@ -81,30 +132,42 @@ public class Tower extends GameEntity {
 
     public void shoot(Stage stage ,Enemy enemy)
     {
+
         //Enemy enemy = enemyTarget(GameStage.stackEnemy,this);
-        Timeline timeline1 = new
-                Timeline(new KeyFrame(Duration.millis(1000),
-                (evt)->{
-                    if(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5))
-                    {
-                        //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
-                        // build tower
-                        Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                        bullet3.shoot(stage,72-15,72+30,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
-                        Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                        bullet4.shoot(stage,72*3-15,72*3,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
-                        Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                        bullet5.shoot(stage,72*4,72*1,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
-                    }
-                }
-        ));
-        timeline1.setCycleCount(Animation.INDEFINITE);
-        timeline1.play();
+       if(enemy != null) {
+           Timeline timeline1 = new
+                   Timeline(new KeyFrame(Duration.millis(1000),
+                   (evt)->{
+                       if(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5) )
+                       {
+                           //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
+                           // build tower
+                           Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                           bullet3.shoot(stage,72-15,72+30,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
+                           Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                           bullet4.shoot(stage,72*3-15,72*3,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
+                           Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                           bullet5.shoot(stage,72*4,72*1,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
+                       }
+                   }
+           ));
+           timeline1.setCycleCount(Animation.INDEFINITE);
+           timeline1.play();
+        }
     }
     public static boolean canShoot1(double x ,double y , double range,double x_target,double y_target)
     {
         double  distance = Math.sqrt((x-x_target)*(x-x_target)+(y-y_target)*(y-y_target));
         return distance < range;
+    }
+    public static boolean canShoot2(double x ,double y , double range,Enemy enemy)
+    {
+        double distance=0;
+        if(enemy.getimage().getImageView() != null)   {
+            distance = Math.sqrt((x-enemy.getimage().getImageView().getX())*(x-enemy.getimage().getImageView().getX())+(y-enemy.getimage().getImageView().getY())*(y-enemy.getimage().getImageView().getY()));
+            return distance < range;
+        }
+       return false;
     }
     public boolean canShoot(double x ,double y , double range,double x_target,double y_target)
     {

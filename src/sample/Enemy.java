@@ -3,6 +3,8 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -75,47 +77,35 @@ public class Enemy extends GameEntity {
     public void Run(Stage stage, final int x_now , final int y_now, Stack<String> direction)
     {
         image.show(stage,x_now,y_now);
-        health.getImgBlood().show(stage,x_now,y_now);
-       /* Timeline timeline1 = new
-                Timeline(new KeyFrame(Duration.millis(1000),
-                (evt)->{
-                    Bullet bullet2 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                    bullet2.shoot(stage,72*5,72*3,this.getimage().getImageView().getX()+12.5,this.getimage().getImageView().getY()+12.5);
-                }
-        ));
-        timeline1.setCycleCount(Animation.INDEFINITE);
-        timeline1.play();*/
         Timeline timeline = new
                 Timeline(new KeyFrame(Duration.millis(20),
                 (evt)->{
-                         //Tower.addTarget(this);
+                    //Tower.addTarget(this);
+                    //System.out.println(Tower.getCount());
+                    health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
+                    if(image.getImageView().getX() >= 72*2) health.setBlood(0);
                        try
                        {
                            String way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
                            if(way.equals("right"))
                            {
-
                                image.getImageView().setX(image.getImageView().getX()+1);
-                               health.getImgBlood().getImageView().setX((health.getImgBlood().getImageView().getX()+1));
-                               if(image.getImageView().getX() >= Config.width_scene) die();
+                               if(image.getImageView().getX() >= Config.width_scene || health.getBlood() == 0 ) die();
                            }
                            if(way.equals("up"))
                            {
                                image.getImageView().setY(image.getImageView().getY()-1);
-                               health.getImgBlood().getImageView().setY(health.getImgBlood().getImageView().getY()-1);
-                               if(image.getImageView().getY()-11 < 0) die();
+                               if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die();
                            }
                            if(way.equals("down"))
                            {
                                image.getImageView().setY(image.getImageView().getY()+1);
-                               health.getImgBlood().getImageView().setY(health.getImgBlood().getImageView().getY()+1);
-                               if(image.getImageView().getY() >= Config.height_scene) die();
+                               if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die();
                            }
                            if(way.equals("left"))
                            {
                                image.getImageView().setX(image.getImageView().getX()-1);
-                               health.getImgBlood().getImageView().setX(health.getImgBlood().getImageView().getX()-1);
-                               if(image.getImageView().getX() <0) die();
+                               if(image.getImageView().getX() <0 || health.getBlood() == 0) die();
                            }
                        }
                        catch (ArrayIndexOutOfBoundsException e)
@@ -182,7 +172,8 @@ public class Enemy extends GameEntity {
     {
         this.getimage().remote();
         speed = 0;
-        this.getHealth().getImgBlood().remote();
+        health.getBleed().setFill(Color.TRANSPARENT);
+        //this.getHealth().getImgBlood().remote();
         armor =0;
         bonus=0;
     }
