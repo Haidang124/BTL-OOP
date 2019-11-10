@@ -123,7 +123,7 @@ public class Bullet extends GameEntity {
                             image.getImageView().setY(image.getImageView().getY()+(distance/angle));
                         }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==9)
@@ -141,7 +141,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setY(image.getImageView().getY()-(distance/angle));
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==7)
@@ -159,7 +159,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setY(image.getImageView().getY()-(distance/angle));
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==1)
@@ -177,7 +177,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setY(image.getImageView().getY()+(distance/angle));
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==8)
@@ -194,7 +194,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setY(image.getImageView().getY()-distance);
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==2)
@@ -211,7 +211,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setY(image.getImageView().getY()+distance);
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==6)
@@ -228,7 +228,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setX(image.getImageView().getX()+distance);
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         else if(k==4)
@@ -245,7 +245,7 @@ public class Bullet extends GameEntity {
                         image.getImageView().setX(image.getImageView().getX()-distance);
                     }
             ));
-            timeline.setCycleCount(153);
+            timeline.setCycleCount(155);
             timeline.play();
         }
         return false;

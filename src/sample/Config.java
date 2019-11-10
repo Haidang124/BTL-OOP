@@ -10,14 +10,12 @@ public class Config {
     public static final image imgbackground = new image("file:background.png");
     public static final image imgButtonExit = new image("file:images\\exitButton.png");
     public static final image imgButtonStart = new image("file:startButton.png");
-    public static final image imgslTower = new image("file:images\\selTower.png");
-    public static boolean checkPane = false;
     public static final int width_scene = 936;
     public static final int height_scene = 648;
     public static final int sizeimageMap = 72;
     public static final int sizeimageEnemy=50;
-//    public static Canvas canvas = new Canvas(width_scene,height_scene);
-//    public static GraphicsContext gc = canvas.getGraphicsContext2D();
+    public static Canvas canvas = new Canvas(width_scene,height_scene);
+    public static GraphicsContext gc = canvas.getGraphicsContext2D();
     public static Pane pane = new Pane();
     public static Pane paneBG = new Pane();
     public static Group group = new Group();

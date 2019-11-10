@@ -45,7 +45,7 @@ public class Tower extends GameEntity {
         this.bullet = bullet;
     }
 
-    public Tower(sample.image image, double x, double y, Bullet bullet) {
+    public Tower(sample.image image, int x, int y, Bullet bullet) {
         super(image, x, y);
         this.bullet = bullet;
     }
@@ -112,6 +112,7 @@ public class Tower extends GameEntity {
                     }
 
                 }
+
             }
             else {
                 for(int i=0;i<count;i++)
@@ -125,29 +126,9 @@ public class Tower extends GameEntity {
             }
         }
     }
-    public static void build(Stage stage,double x ,  double y,int type)
+    public static void built()
     {
-        if(GameField.arrmap[(int)x/72][(int)y/72].equals("2"))
-        {
-            if(type ==1)
-            {
-                MachineGunTower machineGunTower = new MachineGunTower(x,y);
-                GameEntity.enemyArrayList.add(machineGunTower);
-                GameField.arrmap[(int)x/72][(int)y/72] = "1";
-            }
-            else if(type ==2)
-            {
-                NormalTower normalTower = new NormalTower(x,y);
-                GameEntity.enemyArrayList.add(normalTower);
-                GameField.arrmap[(int)x/72][(int)y/72] = "2";
-            }
-            else
-            {
-                SniperTower sniperTower = new SniperTower(x,y);
-                GameEntity.enemyArrayList.add(sniperTower);
-                GameField.arrmap[(int)x/72][(int)y/72] ="3";
-            }
-        }
+
     }
 
     public void shoot(Stage stage ,Enemy enemy) throws NullPointerException
@@ -158,20 +139,20 @@ public class Tower extends GameEntity {
            Timeline timeline1 = new
                    Timeline(new KeyFrame(Duration.millis(1000),
                    (evt)->{
-                       try {
-                           if (this.canShoot(72 * 4.5, 72 * 4.5, 72 * 4, enemy.getimage().getImageView().getX() + 12.5, enemy.getimage().getImageView().getY() + 12.5)) {
-                               //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
-                               // build tower
-                               Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"), 100, 100, 100);
-                               bullet3.shoot(stage, 72 - 15, 72 + 30, enemy);
-//                           Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-//                           bullet4.shoot(stage,72*3-15,72*3,enemy);
-//                           Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-//                           bullet5.shoot(stage,72*4,72*1,enemy);
-                           }
-                       }
-                       catch (NullPointerException e){};
-                   }
+                      try {
+                          if (this.canShoot(72 * 4.5, 72 * 4.5, 72 * 4, enemy.getimage().getImageView().getX() + 12.5, enemy.getimage().getImageView().getY() + 12.5)) {
+                              //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
+                              // build tower
+                              Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"), 100, 100, 100);
+                              bullet3.shoot(stage, 72 - 15, 72 + 30, enemy);
+                               Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                               bullet4.shoot(stage,72*3-15,72*3,enemy);
+                               Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                               bullet5.shoot(stage,72*4,72*1,enemy);
+                          }
+                      }
+                      catch (NullPointerException e){};
+                      }
            ));
            timeline1.setCycleCount(Animation.INDEFINITE);
            timeline1.play();

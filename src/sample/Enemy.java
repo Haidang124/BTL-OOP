@@ -98,37 +98,21 @@ public class Enemy extends GameEntity {
                            if(way.equals("right"))
                            {
                                image.getImageView().setX(image.getImageView().getX()+1);
-                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
-                               else {
-                                   this.setDanger(true);
-                               }
                                if(image.getImageView().getX() >= Config.width_scene || health.getBlood() == 0 ) die();
                            }
                            if(way.equals("up"))
                            {
                                image.getImageView().setY(image.getImageView().getY()-1);
-                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
-                               else {
-                                   this.setDanger(true);
-                               }
                                if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die();
                            }
                            if(way.equals("down"))
                            {
                                image.getImageView().setY(image.getImageView().getY()+1);
-                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
-                               else {
-                                   this.setDanger(true);
-                               }
                                if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die();
                            }
                            if(way.equals("left"))
                            {
                                image.getImageView().setX(image.getImageView().getX()-1);
-                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
-                               else {
-                                   this.setDanger(true);
-                               }
                                if(image.getImageView().getX() <0 || health.getBlood() == 0) die();
                            }
                        }
@@ -136,6 +120,7 @@ public class Enemy extends GameEntity {
                        {
 
                        }
+
                 }
         ));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -195,8 +180,6 @@ public class Enemy extends GameEntity {
     {
         try{
             this.getimage().getImageView();
-            this.getimage();
-            this.getimage().getImageView().getX();
         }
         catch (NullPointerException e){ return false; };
         return true;

@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -14,9 +13,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -62,7 +58,7 @@ public class Main extends Application {
             path.setStroke(Color.RED);
             Config.group.getChildren().add(path);
             primaryStage.setScene(Config.scene);
-            Stack<Integer> checkPane = new Stack<Integer>();
+
             Circle path1 = new Circle(72*4.5, 72*4.5, 72*4);
             path1.setFill(null);
             path1.setStroke(Color.BLUE);
@@ -70,17 +66,11 @@ public class Main extends Application {
             Config.pane.getChildren().add(Config.group);
             primaryStage.setScene(Config.scene);
             primaryStage.show();
-            // show tower
-                Config.pane.setOnMouseClicked(mouseEvent1 -> {
-                   Config.imgslTower.show(primaryStage,mouseEvent1.getSceneX(),mouseEvent1.getSceneY());
-                    Config.pane.setOnKeyReleased(keyEvent ->
-                    {
-                        if (keyEvent.getCode() == KeyCode.DIGIT3){
-                            System.out.println("da");
-                        }
 
-                    });
-                });
+            //
+            Bullet bullet2 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+            NormalTower tower = new NormalTower(72,72*2,bullet2);
+            // show tower
             image image2 = new image("file:images\\SpinerTower.png");
             image2.show(primaryStage,72-15,72+30);
             image image = new image("file:images\\MGTower.png");
@@ -95,7 +85,7 @@ public class Main extends Application {
                         if(newStack.isEmpty() == false) {
                             newStack.pop().Run(primaryStage,gameStage.x,gameStage.y,stringStack);
                         }
-                       // if(Tower.getCount() >=1) tower.shoot(primaryStage,Tower.arrayList.get(Tower.getTarget()));
+                        if(Tower.getCount() >=1) tower.shoot(primaryStage,Tower.arrayList.get(Tower.getTarget()));
                         image2.show(primaryStage,72-15,72+30);
                         image.show(primaryStage,72*3-15,72*3);
                         image1.show(primaryStage,72*4,72*1);

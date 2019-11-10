@@ -4,15 +4,12 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-
 public class GameEntity extends Pane {
    protected image image = new image();
-   protected double x;// vi tri in
-   protected double y;
-   protected static ArrayList<Tower> enemyArrayList = new ArrayList<>();
+   protected int x;// vi tri in
+   protected int y;
    // constructor
-   public GameEntity(sample.image image, double x, double y) {
+   public GameEntity(sample.image image, int x, int y) {
 
         this.image = image;
         this.x = x;
@@ -34,20 +31,20 @@ public class GameEntity extends Pane {
     public void setImage(sample.image image) {
         this.image = image;
     }
-
-    public double getX() {
+    
+    public int getx() {
         return x;
     }
 
-    public void setX(double x) {
+    public void sety(int x) {
         this.x = x;
     }
 
-    public double getY() {
+    public int gety() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 }
