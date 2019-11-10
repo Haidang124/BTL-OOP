@@ -78,6 +78,13 @@ public class Enemy extends GameEntity {
     public void Run(Stage stage, final int x_now , final int y_now, Stack<String> direction)
     {
         image.show(stage,x_now,y_now);
+        if(Config.imageArrayList.isEmpty() == false)
+        {
+            for (int i=0;i<Config.imageArrayList.size();i++)
+            {
+                Config.imageArrayList.get(i).show(stage,Config.imageArrayList.get(i).getImageView().getX(),Config.imageArrayList.get(i).getImageView().getY());
+            }
+        }
         Timeline timeline = new
                 Timeline(new KeyFrame(Duration.millis(20),
                 (evt)->{
@@ -191,6 +198,7 @@ public class Enemy extends GameEntity {
             this.getimage().remote();
             this.getimage().setImageView(null);
             this.setImage(null);
+            health.getBlood1().setFill(Color.TRANSPARENT);
             health.getBleed().setFill(Color.TRANSPARENT);
         }
         catch (NullPointerException e) {}

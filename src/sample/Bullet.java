@@ -115,7 +115,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                             if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) {
                                 image.remote();
-                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                                 else enemy.die();
                                 return;
                             }
@@ -133,7 +133,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -151,7 +151,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -169,7 +169,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -187,7 +187,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if( image.getImageView().getY() <= y_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -204,7 +204,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if( image.getImageView().getY() >= y_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -221,7 +221,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if( image.getImageView().getX() >= x_target ) {
                             image.remote();
-                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                            else enemy.die();
 
                         }
@@ -238,7 +238,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if( image.getImageView().getX() <= x_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
