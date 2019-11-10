@@ -45,27 +45,27 @@ public class Tower extends GameEntity {
         this.bullet = bullet;
     }
 
-    public Tower(sample.image image, int x, int y, Bullet bullet) {
+    public Tower(sample.image image, double x, double y, Bullet bullet) {
         super(image, x, y);
         this.bullet = bullet;
     }
-    public static void getTarget ()
+    public static int getTarget ()
     {
         for(int i=0;i<count;i++)
         {
+            //System.out.println(arrayList.get(i).isDanger()+" ");
             if(arrayList.get(i).isDanger()==true)
             {
-                System.out.println(i+" "+"getTarget");
-                break;
+               // System.out.println(i+" "+"getTarget");
+                return i;
                 //return arrayList.get(i);
             }
-
         }
-        //return null;
+        return -1;
     }
     public static void addTarget (Enemy enemy)
     {
-       // System.out.println(count+" "+enemy.getimage().getImageView().getX());
+      //  System.out.println(count);
         for(int i=0;i<count;i++)
         {
             if(arrayList.get(i)==enemy) return;
@@ -79,6 +79,7 @@ public class Tower extends GameEntity {
         {
             enemy.setDanger(false);
         }
+        getTarget();
     }
     public static void addTarget1 (Enemy enemy)
     {
@@ -111,7 +112,6 @@ public class Tower extends GameEntity {
                     }
 
                 }
-
             }
             else {
                 for(int i=0;i<count;i++)
@@ -125,30 +125,52 @@ public class Tower extends GameEntity {
             }
         }
     }
-    public static void built()
+    public static void build(Stage stage,double x ,  double y,int type)
     {
-
+        if(GameField.arrmap[(int)x/72][(int)y/72].equals("2"))
+        {
+            if(type ==1)
+            {
+                MachineGunTower machineGunTower = new MachineGunTower(x,y);
+                GameEntity.enemyArrayList.add(machineGunTower);
+                GameField.arrmap[(int)x/72][(int)y/72] = "1";
+            }
+            else if(type ==2)
+            {
+                NormalTower normalTower = new NormalTower(x,y);
+                GameEntity.enemyArrayList.add(normalTower);
+                GameField.arrmap[(int)x/72][(int)y/72] = "2";
+            }
+            else
+            {
+                SniperTower sniperTower = new SniperTower(x,y);
+                GameEntity.enemyArrayList.add(sniperTower);
+                GameField.arrmap[(int)x/72][(int)y/72] ="3";
+            }
+        }
     }
 
-    public void shoot(Stage stage ,Enemy enemy)
+    public void shoot(Stage stage ,Enemy enemy) throws NullPointerException
     {
 
         //Enemy enemy = enemyTarget(GameStage.stackEnemy,this);
-       if(enemy != null) {
+       if(enemy.checkNull() == true) {
            Timeline timeline1 = new
                    Timeline(new KeyFrame(Duration.millis(1000),
                    (evt)->{
-                       if(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5) )
-                       {
-                           //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
-                           // build tower
-                           Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                           bullet3.shoot(stage,72-15,72+30,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
-                           Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                           bullet4.shoot(stage,72*3-15,72*3,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
-                           Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                           bullet5.shoot(stage,72*4,72*1,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5);
+                       try {
+                           if (this.canShoot(72 * 4.5, 72 * 4.5, 72 * 4, enemy.getimage().getImageView().getX() + 12.5, enemy.getimage().getImageView().getY() + 12.5)) {
+                               //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
+                               // build tower
+                               Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"), 100, 100, 100);
+                               bullet3.shoot(stage, 72 - 15, 72 + 30, enemy);
+//                           Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+//                           bullet4.shoot(stage,72*3-15,72*3,enemy);
+//                           Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+//                           bullet5.shoot(stage,72*4,72*1,enemy);
+                           }
                        }
+                       catch (NullPointerException e){};
                    }
            ));
            timeline1.setCycleCount(Animation.INDEFINITE);

@@ -3,10 +3,12 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.util.Stack;
 
 public class Bullet extends GameEntity {
@@ -47,8 +49,10 @@ public class Bullet extends GameEntity {
     }
 
     // method
-    public void shoot(Stage stage, double x, double y, double x_target, double y_target)
+    public boolean shoot(Stage stage, double x, double y, Enemy enemy)
     {
+        double x_target = enemy.getimage().getImageView().getX();
+        double y_target = enemy.getimage().getImageView().getY();
        /* double k =Math.abs(x-x_target)/200;
         image.show(stage,x,y);
         if(y != y_target) {
@@ -109,12 +113,17 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                            if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) image.remote();
+                            if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) {
+                                image.remote();
+                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                                else enemy.die();
+                                return;
+                            }
                             image.getImageView().setX(image.getImageView().getX()+distance);
                             image.getImageView().setY(image.getImageView().getY()+(distance/angle));
                         }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==9)
@@ -122,12 +131,17 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) image.remote();
+                        if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setX(image.getImageView().getX()+distance);
                         image.getImageView().setY(image.getImageView().getY()-(distance/angle));
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==7)
@@ -135,12 +149,17 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) image.remote();
+                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setX(image.getImageView().getX()-distance);
                         image.getImageView().setY(image.getImageView().getY()-(distance/angle));
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==1)
@@ -148,12 +167,17 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) image.remote();
+                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setX(image.getImageView().getX()-distance);
                         image.getImageView().setY(image.getImageView().getY()+(distance/angle));
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==8)
@@ -161,11 +185,16 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if( image.getImageView().getY() <= y_target ) image.remote();
+                        if( image.getImageView().getY() <= y_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setY(image.getImageView().getY()-distance);
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==2)
@@ -173,11 +202,16 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if( image.getImageView().getY() >= y_target ) image.remote();
+                        if( image.getImageView().getY() >= y_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setY(image.getImageView().getY()+distance);
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==6)
@@ -185,11 +219,16 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if( image.getImageView().getX() >= x_target ) image.remote();
+                        if( image.getImageView().getX() >= x_target ) {
+                            image.remote();
+                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                           else enemy.die();
+
+                        }
                         image.getImageView().setX(image.getImageView().getX()+distance);
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
         else if(k==4)
@@ -197,15 +236,19 @@ public class Bullet extends GameEntity {
             Timeline timeline = new
                     Timeline(new KeyFrame(Duration.millis(3),
                     (evt)->{
-                        if( image.getImageView().getX() <= x_target ) image.remote();
+                        if( image.getImageView().getX() <= x_target ) {
+                            image.remote();
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-1);
+                            else enemy.die();
+                            return;
+                        }
                         image.getImageView().setX(image.getImageView().getX()-distance);
                     }
             ));
-            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.setCycleCount(153);
             timeline.play();
         }
-
-
+        return false;
     }
     public double findTargetX(Enemy enemy)
     {

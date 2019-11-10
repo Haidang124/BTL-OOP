@@ -93,7 +93,15 @@ import javafx.stage.Stage;
     }
     public void remote()
     {
-        imageView.imageProperty().set(null);
+      try
+      {
+          imageView.imageProperty().set(null);
+      }
+      catch (NullPointerException e)
+      {
+
+      }
+
     }
 
 }

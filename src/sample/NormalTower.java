@@ -1,7 +1,7 @@
 package sample;
 
 public class NormalTower extends  Tower {
-    public NormalTower(sample.image image, int x, int y, Bullet bullet) {
-        super(image, x, y, bullet);
+    public NormalTower(double x, double y) {
+        super(new image("file:images\\2.png"), x, y, new Bullet(new image("file:images\\bullet.png"),100,10,72*2));
     }
 }

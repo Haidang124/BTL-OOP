@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -80,31 +81,54 @@ public class Enemy extends GameEntity {
         Timeline timeline = new
                 Timeline(new KeyFrame(Duration.millis(20),
                 (evt)->{
-                    //Tower.addTarget(this);
+                    Tower.addTarget(this);
                     //System.out.println(Tower.getCount());
-                    health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
-                    if(image.getImageView().getX() >= 72*2) health.setBlood(0);
+              try{
+                  health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
+              }
+              catch (NullPointerException e) {}
+                   // if(Tower.canShoot1(72*4.5,72*4.5,72*4,image.getImageView().getX(),image.getImageView().getY())) health.setBlood(health.getBlood()-1);
                        try
                        {
-                           String way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
+                           String way = new String();
+                           try {
+                                way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
+                           }
+                           catch (Exception e){}
                            if(way.equals("right"))
                            {
                                image.getImageView().setX(image.getImageView().getX()+1);
+                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
+                               else {
+                                   this.setDanger(true);
+                               }
                                if(image.getImageView().getX() >= Config.width_scene || health.getBlood() == 0 ) die();
                            }
                            if(way.equals("up"))
                            {
                                image.getImageView().setY(image.getImageView().getY()-1);
+                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
+                               else {
+                                   this.setDanger(true);
+                               }
                                if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die();
                            }
                            if(way.equals("down"))
                            {
                                image.getImageView().setY(image.getImageView().getY()+1);
+                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
+                               else {
+                                   this.setDanger(true);
+                               }
                                if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die();
                            }
                            if(way.equals("left"))
                            {
                                image.getImageView().setX(image.getImageView().getX()-1);
+                               if(Tower.canShoot2(72*4.5,72*4.5,72*4,this)==false) this.setDanger(false);
+                               else {
+                                   this.setDanger(true);
+                               }
                                if(image.getImageView().getX() <0 || health.getBlood() == 0) die();
                            }
                        }
@@ -112,7 +136,6 @@ public class Enemy extends GameEntity {
                        {
 
                        }
-
                 }
         ));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -168,11 +191,28 @@ public class Enemy extends GameEntity {
         }
         return "finish";
     }
-    public void die()
+    public boolean checkNull()
     {
-        this.getimage().remote();
+        try{
+            this.getimage().getImageView();
+            this.getimage();
+            this.getimage().getImageView().getX();
+        }
+        catch (NullPointerException e){ return false; };
+        return true;
+    }
+    public void die() throws NullPointerException
+    {
+        this.setDanger(false);
+        try {
+            this.getimage().remote();
+            this.getimage().setImageView(null);
+            this.setImage(null);
+            health.getBleed().setFill(Color.TRANSPARENT);
+        }
+        catch (NullPointerException e) {}
         speed = 0;
-        health.getBleed().setFill(Color.TRANSPARENT);
+
         //this.getHealth().getImgBlood().remote();
         armor =0;
         bonus=0;
