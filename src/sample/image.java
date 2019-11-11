@@ -65,6 +65,7 @@ import javafx.stage.Stage;
         imageView = new ImageView(image);
         changePosition(x,y);
         Config.pane.getChildren().add(imageView);
+        imageView.setFocusTraversable(true);
         stage.setScene(Config.scene);
         stage.show();
     }

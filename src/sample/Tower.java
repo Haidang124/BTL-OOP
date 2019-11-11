@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -133,9 +135,24 @@ public class Tower extends GameEntity {
     {
 
     }
+    public void towerBuild (Stage stage){
+        image.show(stage, this.x - (image.getImage().getWidth()-Config.sizeimageMap),
+                this.y - (image.getImage().getHeight()-Config.sizeimageMap));
+
+        Circle circle = new Circle(x + Config.sizeimageMap/2, y + Config.sizeimageMap/2,
+                72*2, Color.color(0.192, 0.192, 0.192, 0.1));
+        Config.pane.getChildren().add(circle);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(2.5),
+                        event -> { Config.pane.getChildren().remove(circle); }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
     public void shoot(Stage stage ,Enemy enemy) throws NullPointerException
     {
+
 //        if(Config.imageArrayList.isEmpty() == false)
 //        {
 //            for (int i=0;i<Config.imageArrayList.size();i++)
@@ -155,33 +172,32 @@ public class Tower extends GameEntity {
 //                                catch (NullPointerException e){};
 //                            }
 //                    ));
-//                    timeline1.setCycleCount(Animation.INDEFINITE);
+//                  //  timeline1.setCycleCount(Animation.INDEFINITE);
 //                    timeline1.play();
 //                }
 //            }
-//        }
+   //     }
         if(enemy.checkNull() == true) {
             Timeline timeline1 = new
                     Timeline(new KeyFrame(Duration.millis(1000),
                     (evt)->{
                         try {
                             if (this.canShoot(72 * 4.5, 72 * 4.5, 72 * 4, enemy.getimage().getImageView().getX() + 12.5, enemy.getimage().getImageView().getY() + 12.5)) {
-                                //System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
-                                // build tower
-//                                Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-//                                bullet3.shoot(stage,72-15,72+30,enemy);
-//                                Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-//                                bullet4.shoot(stage,72*3-15,72*3,enemy);
-//                                Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-//                                bullet5.shoot(stage,72*4,72*1,enemy);
+                                System.out.println(this.canShoot(72*4.5,72*4.5,72*4,enemy.getimage().getImageView().getX()+12.5,enemy.getimage().getImageView().getY()+12.5));
+                                Bullet bullet3 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                                bullet3.shoot(stage,72-15,72+30,enemy);
+                                Bullet bullet4 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                                bullet4.shoot(stage,72*3-15,72*3,enemy);
+                                Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
+                                bullet5.shoot(stage,72*4,72*1,enemy);
                             }
                         }
                         catch (NullPointerException e){};
-                    }
-            ));
-            timeline1.setCycleCount(Animation.INDEFINITE);
-            timeline1.play();
-        }
+                                }
+                                ));
+                                timeline1.setCycleCount(Animation.INDEFINITE);
+                                timeline1.play();
+                                }
     }
     public static boolean canShoot1(double x ,double y , double range,double x_target,double y_target)
     {

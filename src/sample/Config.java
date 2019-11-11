@@ -7,12 +7,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Config {
-    public static final image imgbackground = new image("file:background.png");
+    public static final image imgbackground = new image("file:images\\background.png");
     public static final image imgButtonExit = new image("file:images\\exitButton.png");
-    public static final image imgButtonStart = new image("file:startButton.png");
-    public static ArrayList<image> imageArrayList = new ArrayList<>();
+    public static final image imgButtonStart = new image("file:images\\startButton.png");
+    public static Stack<image> imageStack = new Stack<>();
     public static int x_pos;
     public static int y_pos;
     public static final int width_scene = 936;
