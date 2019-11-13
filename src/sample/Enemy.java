@@ -94,7 +94,7 @@ public class Enemy extends GameEntity {
                            if(way.equals("right"))
                            {
                                image.getImageView().setX(image.getImageView().getX()+1);
-                               if(image.getImageView().getX() >= Config.width_scene || health.getBlood() == 0 ) die();
+                               if(image.getImageView().getX() >= Config.width_scene-Config.width_menu || health.getBlood() == 0 ) die();
                            }
                            if(way.equals("up"))
                            {
@@ -174,7 +174,36 @@ public class Enemy extends GameEntity {
     }
     public void die() throws NullPointerException
     {
-        Config.Money+=10;
+        if (this.getHealth().getBlood() > 0)
+        {
+           if(Config.health ==5)
+           {
+               Config.pane.getChildren().remove(Config.imgHeart5.getImageView());
+               Config.health --;
+           }
+           else if(Config.health ==4)
+           {
+               Config.pane.getChildren().remove(Config.imgHeart4.getImageView());
+               Config.health --;
+           }
+           else if(Config.health ==3)
+           {
+               Config.pane.getChildren().remove(Config.imgHeart3.getImageView());
+               Config.health --;
+           }
+           else if(Config.health ==2)
+           {
+               Config.pane.getChildren().remove(Config.imgHeart2.getImageView());
+               Config.health --;
+           }
+           else if(Config.health ==1)
+           {
+               Config.pane.getChildren().remove(Config.imgHeart1.getImageView());
+               Config.health --;
+               System.out.println("You lose");
+           }
+        }
+
         if(this.isSurvive() == true)
         {
             GameStage.enemyArrayList.remove(GameStage.enemyArrayList.size()-1);

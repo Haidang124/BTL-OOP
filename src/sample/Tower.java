@@ -134,6 +134,12 @@ public class Tower extends GameEntity {
             if(Tower.canShoot2(this.getx()+Config.sizeimageMap/2,this.gety()+Config.sizeimageMap/2,72*2,GameStage.enemyArrayList.get(i)))
             {
                 Line line = new Line(this.getx()+Config.sizeimageMap/2,this.gety()+Config.sizeimageMap/2,GameStage.enemyArrayList.get(i).getimage().getImageView().getX()+25,GameStage.enemyArrayList.get(i).getimage().getImageView().getY()+25);
+//                line.setStroke(Color.color(Math.random(), Math.random(), Math.random()));
+//                if(Config.pane.getChildren().contains(line) == false) Config.pane.getChildren().add(line);
+//                else {
+//                    System.out.println(123);
+//                    Config.pane.getChildren().remove(line);
+//                }
                 bullet1 = new Bullet1(Color.BLUE,this.getx()+Config.sizeimageMap/2,this.gety()+Config.sizeimageMap/2,line,100,100,72*2);
                 bullet1.shoot(primaryStage,GameStage.enemyArrayList.get(i));
                 return;
@@ -295,9 +301,14 @@ public class Tower extends GameEntity {
                                 @Override
                                 public void handle(KeyEvent event) {
                                     if (event.getCode() == KeyCode.DIGIT2) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,2);
-                                        GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                        if (Config.slTower2 >0)
+                                        {
+                                            Config.pane.getChildren().remove(menuView);
+                                            if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,2);
+                                            GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                            Config.slTower2--;
+                                            Config.label2.setText(Config.slTower2+"");
+                                        }
 //                                    NormalTower tower = new NormalTower(Config.x_pos, Config.y_pos);
 //                                    tower.towerBuild(primaryStage);
 //                                    Timeline timeline1 = new
@@ -319,9 +330,14 @@ public class Tower extends GameEntity {
 //                                    timeline1.play();
                                     }
                                     if (event.getCode() == KeyCode.DIGIT3) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,3);
-                                        GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                        if(Config.slTower3 > 0)
+                                        {
+                                            Config.pane.getChildren().remove(menuView);
+                                            if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,3);
+                                            GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                            Config.slTower3--;
+                                            Config.label3.setText(Config.slTower3+"");
+                                        }
 //                                    SniperTower tower = new SniperTower(Config.x_pos, Config.y_pos);
 //                                    tower.towerBuild(primaryStage);
 //                                    Timeline timeline1 = new
@@ -343,9 +359,14 @@ public class Tower extends GameEntity {
 //                                    timeline1.play();
                                     }
                                     if (event.getCode() == KeyCode.DIGIT1) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,1);
-                                        GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                        if(Config.slTower1 > 0)
+                                        {
+                                            Config.pane.getChildren().remove(menuView);
+                                            if(GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) Tower.build(primaryStage,Config.x_pos, Config.y_pos,1);
+                                            GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]="0";
+                                            Config.slTower1--;
+                                            Config.label1.setText(Config.slTower1+"");
+                                        }
 //                                    MachineGunTower tower = new MachineGunTower(Config.x_pos, Config.y_pos);
 //                                    tower.towerBuild(primaryStage);
 //                                    Timeline timeline1 = new

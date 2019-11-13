@@ -66,14 +66,32 @@ public class Bullet1 extends GameEntity {
         }
         else if (enemy instanceof SmallerEnemy)
         {
-            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
 
         }
         else if (enemy instanceof TankerEnemy)
         {
-            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-2);
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
 
         }
-        if(enemy.getHealth().getBlood() <= 0) enemy.die();
+        if(enemy.getHealth().getBlood() <= 0)
+        {
+            if(enemy instanceof NormalEnemy)
+            {
+                Config.Money+=10;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            else  if( enemy instanceof SmallerEnemy)
+            {
+                Config.Money+=5;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            else if(enemy instanceof TankerEnemy)
+            {
+                Config.Money+=20;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            enemy.die();
+        }
     }
 }
