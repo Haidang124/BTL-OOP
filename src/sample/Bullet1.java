@@ -48,11 +48,11 @@ public class Bullet1 extends GameEntity {
     }
     public void shoot (Stage stage,Enemy enemy)
     {
-        Line line = new Line(0,0,72,72);
+        //Line line = new Line(0,0,72,72);
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(300));
         pathTransition.setNode(bullet);
-        pathTransition.setPath(line);
+        pathTransition.setPath(path);
         pathTransition.setCycleCount(1);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
@@ -62,21 +62,18 @@ public class Bullet1 extends GameEntity {
         stage.show();
         if(enemy instanceof NormalEnemy)
         {
-            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-110+enemy.getArmor());
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
         }
         else if (enemy instanceof SmallerEnemy)
         {
-            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-110+enemy.getArmor());
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
 
         }
         else if (enemy instanceof TankerEnemy)
         {
-            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-110+enemy.getArmor());
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-2);
 
         }
         if(enemy.getHealth().getBlood() <= 0) enemy.die();
-        if(bullet.getCenterX() == 30) {
-            System.out.println("den chua");
-        }
     }
 }

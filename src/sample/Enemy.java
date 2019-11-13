@@ -74,21 +74,21 @@ public class Enemy extends GameEntity {
     // method
     public void Run(Stage stage, final int x_now , final int y_now, Stack<String> direction)
     {
-        image.show(stage,x_now,y_now);
-        Timeline timeline = new
-                Timeline(new KeyFrame(Duration.millis(20),
-                (evt)->{
-                   // Tower.addTarget(this);
-                    //System.out.println(Tower.getCount());
-              try{
-                  health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
-              }
-              catch (NullPointerException e) {}
+           image.show(stage,x_now,y_now);
+           Timeline timeline = new
+                   Timeline(new KeyFrame(Duration.millis(20),
+                   (evt)->{
+                       // Tower.addTarget(this);
+                       //System.out.println(Tower.getCount());
+                       try{
+                           health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
+                       }
+                       catch (NullPointerException e) {}
                        try
                        {
                            String way = new String();
                            try {
-                                way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
+                               way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
                            }
                            catch (Exception e){}
                            if(way.equals("right"))
@@ -117,10 +117,10 @@ public class Enemy extends GameEntity {
 
                        }
 
-                }
-        ));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+                   }
+           ));
+           timeline.setCycleCount(Animation.INDEFINITE);
+           timeline.play();
     }
     public String checkRoad(int x,int y ,Stack<String> direction)
     {
