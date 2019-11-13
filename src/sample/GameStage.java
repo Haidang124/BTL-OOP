@@ -3,6 +3,7 @@ package sample;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class GameStage {
@@ -11,6 +12,8 @@ public class GameStage {
     private static int countEnemy;
     public String[] arrEnemy = new String[countEnemy];
     public static Stack<Enemy> stackEnemy = new Stack<>();
+    public static ArrayList<Enemy> enemyArrayList = new ArrayList<>();
+
     public GameStage( int countEnemy) {
         this.countEnemy = countEnemy;
     }
@@ -50,22 +53,28 @@ public class GameStage {
     }
     public void loadArrayEnemy (String namefile)  throws IOException
     {
-         BufferedReader buffread = new BufferedReader (new FileReader(namefile));
-         arrEnemy = buffread.readLine().split(" ");
+         BufferedReader buffered = new BufferedReader (new FileReader(namefile));
+         arrEnemy = buffered.readLine().split(" ");
          for(int i=0;i<countEnemy;i++)
          {
              if(arrEnemy[i].equals("1"))
              {
-                 stackEnemy.push(new SmallerEnemy());
+                 SmallerEnemy smallerEnemy = new SmallerEnemy();
+                 stackEnemy.push(smallerEnemy);
+                 enemyArrayList.add(smallerEnemy);
 
              }
              else if(arrEnemy[i].equals("2"))
              {
-                 stackEnemy.push(new NormalEnemy());
+                 NormalEnemy normalEnemy = new NormalEnemy();
+                 stackEnemy.push(normalEnemy);
+                 enemyArrayList.add(normalEnemy);
              }
              else
              {
-                 stackEnemy.push(new TankerEnemy());
+                 TankerEnemy tankerEnemy = new TankerEnemy();
+                 stackEnemy.push(tankerEnemy);
+                 enemyArrayList.add(tankerEnemy);
              }
          }
     }

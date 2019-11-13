@@ -1,9 +1,6 @@
 package sample;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -43,11 +40,15 @@ public class Main extends Application {
         Config.imgButtonStart.getImageView().setFocusTraversable(true);
 
         // Exit game
-        Config.imgButtonExit.getImageView().setOnMouseClicked(mouseEvent -> {
+        Config.imgButtonExit.getImageView().setOnMouseEntered(mouseEvent -> {
             primaryStage.close();
         });
         // startGame
         Config.imgButtonStart.getImageView().setOnMouseClicked(mouseEvent -> {
+            primaryStage.setX(70);
+            primaryStage.setY(30);
+            primaryStage.setResizable(false);
+            Config.imgMenu.show(primaryStage,936,0);
             GameField gameField = new GameField();
             try
             {
@@ -65,136 +66,54 @@ public class Main extends Application {
             }
             catch (Exception e) {}
             Stack<Enemy> newStack =gameStage.getStackEnemy();
-//            Circle path = new Circle(72*4.5, 72*4.5, 72*6);
-//            path.setFill(null);
-//            path.setStroke(Color.RED);
-//            Config.group.getChildren().add(path);
-//            primaryStage.setScene(Config.scene);
-//
-//            Circle path1 = new Circle(72*4.5, 72*4.5, 72*4);
-//            path1.setFill(null);
-//            path1.setStroke(Color.BLUE);
-//            Config.group.getChildren().add(path1);
-//            Config.pane.getChildren().add(Config.group);
-//            primaryStage.setScene(Config.scene);
-//            primaryStage.show();
-
-            //
-            Bullet bullet2 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-            NormalTower tower = new NormalTower(72,72*2,bullet2);
-            // show tower
-
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(2000),
-                    (evt)->{
-                        Stack<String> stringStack = new Stack<>();
-                        stringStack.push("right");
-                        if(newStack.isEmpty() == false) {
-                            newStack.pop().Run(primaryStage,gameStage.x,gameStage.y,stringStack);
-                        }
-                       // if(Tower.getCount() >=1) tower.shoot(primaryStage,Tower.arrayList.get(Tower.getTarget()));
-                    }
-            ));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-
-            Config.pane.setOnMousePressed(new EventHandler<MouseEvent>() {
-                Image towerMenu = new Image("file:images\\selTower.png");
-                ImageView menuView = new ImageView(towerMenu);
-
-                @Override
-                public void handle(MouseEvent event) {
-                    if (event.isPrimaryButtonDown()) {
-                        System.out.println("mouse pressed");
-                        Config.x_pos = ((int) event.getX() / Config.sizeimageMap) * Config.sizeimageMap;
-                        Config.y_pos = ((int) event.getY() / Config.sizeimageMap) * Config.sizeimageMap;
-                        System.out.println(Config.x_pos + " " + Config.y_pos + " " + GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)]);
-                        if (GameField.arrmap[(Config.y_pos / Config.sizeimageMap)][(Config.x_pos / Config.sizeimageMap)].equals("2")) {
-                            menuView.setFitHeight(70);
-                            menuView.setFitWidth(120);
-                            menuView.setX(Config.x_pos - Config.sizeimageMap / 2);
-                            menuView.setY(Config.y_pos - (menuView.getFitHeight() / 2));
-                            try {
-                                Config.pane.getChildren().add(menuView);
-                            } catch (IllegalArgumentException e) {
+            Tower.towerSpawn(primaryStage);
+//            Stack<String> stringStack = new Stack<>();
+//            stringStack.push("right");
+//            NormalEnemy normalEnemy = new NormalEnemy();
+//            normalEnemy.Run(primaryStage,gameStage.x,gameStage.y,stringStack);
+            Config.imgMenu.getImageView().setOnMouseClicked(mouseEvent1 -> {
+               // System.out.println(mouseEvent1.getSceneX()+" "+mouseEvent1.getSceneY());
+                if(mouseEvent1.getSceneX() >=975 && mouseEvent1.getSceneX() <= 1135 && mouseEvent1.getSceneY() >= 535 && mouseEvent1.getSceneY() <= 570)
+                {
+                    Timeline timeline = new
+                            Timeline(new KeyFrame(Duration.millis(2000),
+                        (evt)->{
+                            Stack<String> stringStack = new Stack<>();
+                            stringStack.push("right");
+                            if(newStack.isEmpty() == false) {
+                                System.out.println(GameStage.stackEnemy.size()+"  "+GameStage.enemyArrayList.size());
+                                newStack.pop().Run(primaryStage,gameStage.x,gameStage.y,stringStack);
                             }
+                        }
+                      ));
+                    timeline.setCycleCount(Animation.INDEFINITE);
+                    timeline.play();
+                }
+                });
+            });
 
-                            Config.pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                                @Override
-                                public void handle(KeyEvent event) {
-                                    if (event.getCode() == KeyCode.DIGIT2) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        NormalTower tower = new NormalTower(Config.x_pos, Config.y_pos, bullet2);
-                                        tower.towerBuild(primaryStage);
-                                        Timeline timeline1 = new
-                                                Timeline(new KeyFrame(Duration.millis(1000),
-                                                (evt)->{
-                                                    try {
-                                                        if(Tower.getCount() >=1)
-                                                        {
-                                                            if (tower.canShoot(tower.getimage().getImageView().getX(), tower.getimage().getImageView().getY(),72 * 2, Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getX() , Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getY())) {
-                                                                Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                                                                bullet5.shoot(primaryStage,tower.image.getImageView().getX(),tower.image.getImageView().getY() + (menuView.getFitHeight()/2-10),Tower.arrayList.get(Tower.getTarget()));
-                                                            }
-                                                        }
-                                                    }
-                                                    catch (NullPointerException e){}
-                                                }
-                                        ));
-                                        timeline1.setCycleCount(Animation.INDEFINITE);
-                                        timeline1.play();
-                                    }
-                                    if (event.getCode() == KeyCode.DIGIT3) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        SniperTower tower = new SniperTower(Config.x_pos, Config.y_pos, bullet2);
-                                        tower.towerBuild(primaryStage);
-                                        Timeline timeline1 = new
-                                                Timeline(new KeyFrame(Duration.millis(1000),
-                                                (evt)->{
-                                                    try {
-                                                        if(Tower.getCount() >=1)
-                                                        {
-                                                            if (tower.canShoot(tower.getimage().getImageView().getX(), tower.getimage().getImageView().getY(),72 * 2, Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getX(), Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getY() )) {
-                                                                Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                                                                bullet5.shoot(primaryStage,tower.image.getImageView().getX(),tower.image.getImageView().getY() + (menuView.getFitHeight()/2-10),Tower.arrayList.get(Tower.getTarget()));
-                                                            }
-                                                        }
-                                                    }
-                                                    catch (NullPointerException e){}
-                                                }
-                                        ));
-                                        timeline1.setCycleCount(Animation.INDEFINITE);
-                                        timeline1.play();
-                                    }
-                                    if (event.getCode() == KeyCode.DIGIT1) {
-                                        Config.pane.getChildren().remove(menuView);
-                                        MachineGunTower tower = new MachineGunTower(Config.x_pos, Config.y_pos, bullet2);
-                                        tower.towerBuild(primaryStage);
-                                        Timeline timeline1 = new
-                                                Timeline(new KeyFrame(Duration.millis(1000),
-                                                (evt)->{
-                                                    try {
-                                                        if(Tower.getCount() >=1)
-                                                        {
-                                                            if (tower.canShoot(tower.getimage().getImageView().getX(), tower.getimage().getImageView().getY(),72 * 2, Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getX(), Tower.arrayList.get(Tower.getTarget()).getimage().getImageView().getY())) {
-                                                                Bullet bullet5 = new Bullet(new image("file:images\\bullet.png"),100,100,100);
-                                                                bullet5.shoot(primaryStage,tower.image.getImageView().getX(),tower.image.getImageView().getY() + (menuView.getFitHeight()/2-10),Tower.arrayList.get(Tower.getTarget()));
-                                                            }
-                                                        }
-                                                    }
-                                                    catch (NullPointerException e){}
-                                                }
-                                        ));
-                                        timeline1.setCycleCount(Animation.INDEFINITE);
-                                        timeline1.play();
-                                    }
-                                }
-                            });
+//        AnimationTimer animationTimer = new AnimationTimer() {
+//            @Override
+//            public void handle(long l) {
+//                //System.out.println(GameEntity.towerArrayList.size()+"  dang");
+//                for(int i=0;i<GameEntity.towerArrayList.size();i++)
+//                {
+//                    GameEntity.towerArrayList.get(i).getimage().show(primaryStage,GameEntity.towerArrayList.get(i).getx(),GameEntity.towerArrayList.get(i).gety());
+//                }
+//            }
+//        };
+//        animationTimer.start();
+        Timeline timeline2 = new
+                Timeline(new KeyFrame(Duration.millis(500),
+                (evt)->{
+                        for(int i=0;i<GameEntity.towerArrayList.size();i++)
+                        {
+                            GameEntity.towerArrayList.get(i).findTarget(primaryStage);
                         }
                     }
-                }
-            });
-        });
+        ));
+        timeline2.setCycleCount(Animation.INDEFINITE);
+        timeline2.play();
     }
     public static void main(String[] args) {
         launch(args);

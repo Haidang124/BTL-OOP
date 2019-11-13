@@ -238,7 +238,7 @@ public class Bullet extends GameEntity {
                     (evt)->{
                         if( image.getImageView().getX() <= x_target ) {
                             image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
                             else enemy.die();
                             return;
                         }
@@ -250,13 +250,160 @@ public class Bullet extends GameEntity {
         }
         return false;
     }
-    public double findTargetX(Enemy enemy)
+    public boolean shoot1(Stage stage, double x, double y,  double x_target, double y_target)
     {
-        return enemy.getimage().getImageView().getX();
-    }
-    public double findTargetY (Enemy enemy)
-    {
-        return enemy.getimage().getImageView().getY();
+        int k=0;
+        if(x < x_target && y  > y_target) k=9;
+        else if(x < x_target && y  < y_target) k=3;
+        else if(x > x_target && y  > y_target) k=7;
+        else if(x > x_target && y  < y_target) k=1;
+        else if(x == x_target && y  > y_target) k=8;
+        else if(x == x_target && y  < y_target) k=2;
+        else if(x < x_target && y  == y_target) k=6;
+        else if(x > x_target && y  == y_target) k=4;
+        double distance =Math.abs(x-x_target)/150;
+        double angle =Math.abs((x-x_target)/(y-y_target));
+        image.show(stage,x,y);
+        if(k==3)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                            if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) {
+                                image.remote();
+//                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                                else enemy.die();
+                                return;
+                            }
+                            image.getImageView().setX(image.getImageView().getX()+distance);
+                            image.getImageView().setY(image.getImageView().getY()+(distance/angle));
+                        }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==9)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setX(image.getImageView().getX()+distance);
+                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==7)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setX(image.getImageView().getX()-distance);
+                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==1)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setX(image.getImageView().getX()-distance);
+                        image.getImageView().setY(image.getImageView().getY()+(distance/angle));
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==8)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if( image.getImageView().getY() <= y_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setY(image.getImageView().getY()-distance);
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==2)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if( image.getImageView().getY() >= y_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setY(image.getImageView().getY()+distance);
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==6)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if( image.getImageView().getX() >= x_target ) {
+                            image.remote();
+//                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+//                           else enemy.die();
+                        }
+                        image.getImageView().setX(image.getImageView().getX()+distance);
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        else if(k==4)
+        {
+            Timeline timeline = new
+                    Timeline(new KeyFrame(Duration.millis(3),
+                    (evt)->{
+                        if( image.getImageView().getX() <= x_target ) {
+                            image.remote();
+//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
+//                            else enemy.die();
+                            return;
+                        }
+                        image.getImageView().setX(image.getImageView().getX()-distance);
+                    }
+            ));
+            timeline.setCycleCount(155);
+            timeline.play();
+        }
+        return false;
     }
 }
 

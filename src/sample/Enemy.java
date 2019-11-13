@@ -16,35 +16,32 @@ public class Enemy extends GameEntity {
     protected Health health;
     protected int armor;
     protected int bonus;
-    protected boolean danger;
-
-    public boolean isDanger() {
-        return danger;
-    }
-
-    public void setDanger(boolean danger) {
-        this.danger = danger;
-    }
-
-    public Enemy() {
-        speed =0;
-        health=null;
-        armor =0;
-        bonus=0;
-        danger =false;
-    }
-
+    protected boolean survive = true;
     public Enemy(sample.image image, int speed, Health health, int armor, int bonus) {
         super(image);
         this.speed = speed;
         this.health = health;
         this.armor = armor;
         this.bonus = bonus;
-        this.danger=false;
     }
- // getter && setter
+    public Enemy() {
+        speed =0;
+        health=null;
+        armor =0;
+        bonus=0;
+    }
+
+    // getter && setter
     public int getSpeed() {
         return speed;
+    }
+
+    public boolean isSurvive() {
+        return survive;
+    }
+
+    public void setSurvive(boolean survive) {
+        this.survive = survive;
     }
 
     public void setSpeed(int speed) {
@@ -78,23 +75,15 @@ public class Enemy extends GameEntity {
     public void Run(Stage stage, final int x_now , final int y_now, Stack<String> direction)
     {
         image.show(stage,x_now,y_now);
-//        if(Config.imageArrayList.isEmpty() == false)
-//        {
-//            for (int i=0;i<Config.imageArrayList.size();i++)
-//            {
-//                Config.imageArrayList.get(i).show(stage,Config.imageArrayList.get(i).getImageView().getX(),Config.imageArrayList.get(i).getImageView().getY());
-//            }
-//        }
         Timeline timeline = new
                 Timeline(new KeyFrame(Duration.millis(20),
                 (evt)->{
-                    Tower.addTarget(this);
+                   // Tower.addTarget(this);
                     //System.out.println(Tower.getCount());
               try{
                   health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
               }
               catch (NullPointerException e) {}
-                   // if(Tower.canShoot1(72*4.5,72*4.5,72*4,image.getImageView().getX(),image.getImageView().getY())) health.setBlood(health.getBlood()-1);
                        try
                        {
                            String way = new String();
@@ -183,30 +172,22 @@ public class Enemy extends GameEntity {
         }
         return "finish";
     }
-    public boolean checkNull()
-    {
-        try{
-            this.getimage().getImageView();
-        }
-        catch (NullPointerException e){ return false; };
-        return true;
-    }
     public void die() throws NullPointerException
     {
-        this.setDanger(false);
-        try {
+        Config.Money+=10;
+        if(this.isSurvive() == true)
+        {
+            GameStage.enemyArrayList.remove(GameStage.enemyArrayList.size()-1);
             this.getimage().remote();
             this.getimage().setImageView(null);
             this.setImage(null);
             health.getBlood1().setFill(Color.TRANSPARENT);
             health.getBleed().setFill(Color.TRANSPARENT);
+            this.setSurvive(false);
+            speed = 0;
+            armor =0;
+            bonus=0;
         }
-        catch (NullPointerException e) {}
-        speed = 0;
-
-        //this.getHealth().getImgBlood().remote();
-        armor =0;
-        bonus=0;
     }
 
 
