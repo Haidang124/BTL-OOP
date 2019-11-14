@@ -42,12 +42,10 @@ public class Main extends Application {
         Config.imgButtonStart.showBG(primaryStage,76,370);
 
         Config.imgbackground.getImageView().setFocusTraversable(true);
-        Config.imgButtonExit.getImageView().setFocusTraversable(true);
         Config.imgButtonStart.getImageView().setFocusTraversable(true);
 
         // Exit game
-        Config.imgButtonExit.getImageView().setOnMouseDragged(mouseEvent -> {
-            Config.mediaPlayerSL.play();
+        Config.imgButtonExit.getImageView().setOnMouseClicked(mouseEvent -> {
             primaryStage.close();
         });
         // startGame
@@ -56,91 +54,26 @@ public class Main extends Application {
             primaryStage.setX(70);
             primaryStage.setY(0);
             primaryStage.setResizable(false);
+            GameField gameField = new GameField();
+            try
+            {
+                gameField.loadMapfromfile("input.txt");
+            }
+            catch (Exception e)
+            {
 
-
-            // menu and sound
-            Config.imgMenu.show(primaryStage,936,0);
-            Config.imgSound.show(primaryStage,936,0);
-            Config.imgPause.show(primaryStage,990,490);
-            //heart
-            Config.imgHeart1.show(primaryStage,944,370);
-            Config.imgHeart2.show(primaryStage,944+44,370);
-            Config.imgHeart3.show(primaryStage,944+44*2,370);
-            Config.imgHeart4.show(primaryStage,944+44*3,370);
-            Config.imgHeart5.show(primaryStage,944+44*4,370);
-
-            //imgbuy
-            Config.imgBuy1.show(primaryStage,960,260);
-            Config.imgBuy2.show(primaryStage,1040,260);
-            Config.imgBuy3.show(primaryStage,1120,260);
-
-            // label
-            Config.label1.setTranslateX(985);
-            Config.label1.setTranslateY(123);
-            Config.label1.setFont(Font.font("Cambria", 20));
-            Config.label1.setTextFill(Color.web("#0076a3"));
-
-            Config.label2.setTranslateX(985+80);
-            Config.label2.setTranslateY(123);
-            Config.label2.setFont(Font.font("Cambria", 20));
-            Config.label2.setTextFill(Color.web("#0076a3"));
-
-            Config.label3.setTranslateX(985+80*2);
-            Config.label3.setTranslateY(123);
-            Config.label3.setFont(Font.font("Cambria", 20));
-            Config.label3.setTextFill(Color.web("#0076a3"));
-
-            Config.labelMoney.setText(100+"");
-            Config.labelMoney.setTranslateX(1040);
-            Config.labelMoney.setTranslateY(295);
-            Config.labelMoney.setFont(Font.font("Cambria", 44));
-            Config.labelMoney.setTextFill(Color.YELLOW);
-
-            Config.pane.getChildren().addAll(Config.label1,Config.label2,Config.label3,Config.labelMoney);
-            Config.imgBuy1.getImageView().setOnMouseClicked(mouseEvent1 -> {
-               if(Config.Money >=10)
-               {
-                   if(Config.blSound==true)
-                   {
-                       Config.mediaPlayerSL.stop();
-                       Config.mediaPlayerSL.play();
-                   }
-                   Config.slTower1++;
-                   Config.Money-=10;
-                   Config.labelMoney.setText(Config.Money+"");
-                   Config.label1.setText(Config.slTower1+"");
-               }
-            });
-            Config.imgBuy2.getImageView().setOnMouseClicked(mouseEvent1 -> {
-                if(Config.Money >=20)
-                {
-                    if(Config.blSound==true)
-                    {
-                        Config.mediaPlayerSL.stop();
-                        Config.mediaPlayerSL.play();
-                    }
-                    Config.slTower2++;
-                    Config.Money-=20;
-                    Config.labelMoney.setText(Config.Money+"");
-                    Config.label2.setText(Config.slTower2+"");
-                }
-            });
-            Config.imgBuy3.getImageView().setOnMouseClicked(mouseEvent1 -> {
-                if(Config.Money >=50)
-                {
-                    if(Config.blSound==true)
-                    {
-                        Config.mediaPlayerSL.stop();
-                        Config.mediaPlayerSL.play();
-                    }
-                    Config.slTower3++;
-                    Config.Money-=50;
-                    Config.labelMoney.setText(Config.Money+"");
-                    Config.label3.setText(Config.slTower3+"");
-                }
-            });
-
-
+            }
+            gameField.loadImageMap();
+            gameField.rendermap(primaryStage,0,0);
+            GameStage gameStage = new GameStage(13);
+            try {
+                gameStage.loadArrayEnemy("arrEnemy.txt");
+            }
+            catch (Exception e) {}
+            Stack<Enemy> newStack =gameStage.getStackEnemy();
+            Tower.towerSpawn(primaryStage);
+            Config.setting(primaryStage);
+            Tower.buy(primaryStage);
             Config.pane.setOnMouseClicked(mouseEvent1 ->
             {
                 if(mouseEvent1.getSceneX() >=936 && mouseEvent1.getSceneX() <= 936+44 && mouseEvent1.getSceneY() >= 0 && mouseEvent1.getSceneY() <= 44)
@@ -191,26 +124,8 @@ public class Main extends Application {
                     }
                 }
             });
-            GameField gameField = new GameField();
-            try
-            {
-                gameField.loadMapfromfile("input.txt");
-            }
-            catch (Exception e)
-            {
-
-            }
-            gameField.loadImageMap();
-            gameField.rendermap(primaryStage,0,0);
-            GameStage gameStage = new GameStage(13);
-            try {
-                gameStage.loadArrayEnemy("arrEnemy.txt");
-            }
-            catch (Exception e) {}
-            Stack<Enemy> newStack =gameStage.getStackEnemy();
-            Tower.towerSpawn(primaryStage);
             Config.imgMenu.getImageView().setOnMouseClicked(mouseEvent1 -> {
-                System.out.println(mouseEvent1.getSceneX()+" "+mouseEvent1.getSceneY());
+              //  System.out.println(mouseEvent1.getSceneX()+" "+mouseEvent1.getSceneY());
                 if(mouseEvent1.getSceneX() >=975 && mouseEvent1.getSceneX() <= 1135 && mouseEvent1.getSceneY() >= 535 && mouseEvent1.getSceneY() <= 570)
                 {
                     if(Config.blSound==true)
@@ -227,7 +142,7 @@ public class Main extends Application {
                                    Stack<String> stringStack = new Stack<>();
                                    stringStack.push("right");
                                    if(newStack.isEmpty() == false) {
-                                       System.out.println(GameStage.stackEnemy.size()+"  "+GameStage.enemyArrayList.size());
+                                      // System.out.println(GameStage.stackEnemy.size()+"  "+GameStage.enemyArrayList.size());
                                        newStack.pop().Run(primaryStage,gameStage.x,gameStage.y,stringStack);
                                    }
                                }

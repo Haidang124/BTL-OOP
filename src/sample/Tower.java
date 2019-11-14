@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -60,38 +61,6 @@ public class Tower extends GameEntity {
         super(image, x, y);
         this.bullet = bullet;
     }
-//    public static int getTarget ()
-//    {
-//        for(int i=0;i<count;i++)
-//        {
-//            //System.out.println(arrayList.get(i).isDanger()+" ");
-//            if(arrayList.get(i).isDanger()==true)
-//            {
-//               // System.out.println(i+" "+"getTarget");
-//                return i;
-//                //return arrayList.get(i);
-//            }
-//        }
-//        return -1;
-//    }
-//    public static void addTarget (Enemy enemy)
-//    {
-//      //  System.out.println(count);
-//        for(int i=0;i<count;i++)
-//        {
-//            if(arrayList.get(i)==enemy) return;
-//        }
-//        if(Tower.canShoot2(72*4.5, 72*4.5, 72*4,enemy)) {
-//            arrayList.add(enemy);
-//            enemy.setDanger(true);
-//            count++;
-//        }
-//        else
-//        {
-//            enemy.setDanger(false);
-//        }
-//        getTarget();
-//    }
     public static void build(Stage stage,int x, int y,int type)
     {
         if(type ==1)
@@ -272,6 +241,80 @@ public class Tower extends GameEntity {
             }
         }
         return false;
+    }
+    public static void buy(Stage primaryStage)
+    {
+        Config.imgBuy1.show(primaryStage,960,260);
+        Config.imgBuy2.show(primaryStage,1040,260);
+        Config.imgBuy3.show(primaryStage,1120,260);
+
+        // label
+        Config.label1.setTranslateX(985);
+        Config.label1.setTranslateY(123);
+        Config.label1.setFont(Font.font("Cambria", 20));
+        Config.label1.setTextFill(Color.web("#0076a3"));
+
+        Config.label2.setTranslateX(985+80);
+        Config.label2.setTranslateY(123);
+        Config.label2.setFont(Font.font("Cambria", 20));
+        Config.label2.setTextFill(Color.web("#0076a3"));
+
+        Config.label3.setTranslateX(985+80*2);
+        Config.label3.setTranslateY(123);
+        Config.label3.setFont(Font.font("Cambria", 20));
+        Config.label3.setTextFill(Color.web("#0076a3"));
+
+        Config.labelMoney.setText(100+"");
+        Config.labelMoney.setTranslateX(1040);
+        Config.labelMoney.setTranslateY(295);
+        Config.labelMoney.setFont(Font.font("Cambria", 44));
+        Config.labelMoney.setTextFill(Color.YELLOW);
+
+        Config.pane.getChildren().addAll(Config.label1,Config.label2,Config.label3,Config.labelMoney);
+
+        Config.imgBuy1.getImageView().setOnMouseClicked(mouseEvent1 -> {
+            if(Config.Money >=10)
+            {
+                if(Config.blSound==true)
+                {
+                    Config.mediaPlayerSL.stop();
+                    Config.mediaPlayerSL.play();
+                }
+                Config.slTower1++;
+                Config.Money-=10;
+                Config.labelMoney.setText(Config.Money+"");
+                Config.label1.setText(Config.slTower1+"");
+            }
+        });
+        Config.imgBuy2.getImageView().setOnMouseClicked(mouseEvent1 -> {
+            if(Config.Money >=20)
+            {
+                if(Config.blSound==true)
+                {
+                    Config.mediaPlayerSL.stop();
+                    Config.mediaPlayerSL.play();
+                }
+                Config.slTower2++;
+                Config.Money-=20;
+                Config.labelMoney.setText(Config.Money+"");
+                Config.label2.setText(Config.slTower2+"");
+            }
+        });
+        Config.imgBuy3.getImageView().setOnMouseClicked(mouseEvent1 -> {
+            if(Config.Money >=50)
+            {
+                if(Config.blSound==true)
+                {
+                    Config.mediaPlayerSL.stop();
+                    Config.mediaPlayerSL.play();
+                }
+                Config.slTower3++;
+                Config.Money-=50;
+                Config.labelMoney.setText(Config.Money+"");
+                Config.label3.setText(Config.slTower3+"");
+            }
+        });
+
     }
     public static void towerSpawn(Stage primaryStage){
         Config.pane.setOnMousePressed(new EventHandler<MouseEvent>() {

@@ -13,6 +13,8 @@ import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Stack;
+
 public class Bullet1 extends GameEntity {
    private Circle bullet = new Circle(5);
    private Line path = new Line();
@@ -57,6 +59,14 @@ public class Bullet1 extends GameEntity {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
         Config.group.getChildren().add(bullet);
+        Timeline timeline = new
+                Timeline(new KeyFrame(Duration.millis(300),
+                (evt)->{
+                    bullet.setFill(Color.TRANSPARENT);
+                }
+        ));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
         if(Config.pane.getChildren().contains(Config.group)==false) Config.pane.getChildren().add(Config.group);
         stage.setScene(Config.scene);
         stage.show();
@@ -91,7 +101,7 @@ public class Bullet1 extends GameEntity {
                 Config.Money+=20;
                 Config.labelMoney.setText(Config.Money+"");
             }
-            enemy.die();
+            enemy.die(stage);
         }
     }
 }

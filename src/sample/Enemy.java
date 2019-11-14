@@ -94,22 +94,22 @@ public class Enemy extends GameEntity {
                            if(way.equals("right"))
                            {
                                image.getImageView().setX(image.getImageView().getX()+1);
-                               if(image.getImageView().getX() >= Config.width_scene-Config.width_menu || health.getBlood() == 0 ) die();
+                               if(image.getImageView().getX() >= Config.width_scene-Config.width_menu || health.getBlood() == 0 ) die(stage);
                            }
                            if(way.equals("up"))
                            {
                                image.getImageView().setY(image.getImageView().getY()-1);
-                               if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die();
+                               if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die(stage);
                            }
                            if(way.equals("down"))
                            {
                                image.getImageView().setY(image.getImageView().getY()+1);
-                               if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die();
+                               if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die(stage);
                            }
                            if(way.equals("left"))
                            {
                                image.getImageView().setX(image.getImageView().getX()-1);
-                               if(image.getImageView().getX() <0 || health.getBlood() == 0) die();
+                               if(image.getImageView().getX() <0 || health.getBlood() == 0) die(stage);
                            }
                        }
                        catch (ArrayIndexOutOfBoundsException e)
@@ -172,7 +172,7 @@ public class Enemy extends GameEntity {
         }
         return "finish";
     }
-    public void die() throws NullPointerException
+    public void die(Stage primaryStage) throws NullPointerException
     {
         if (this.getHealth().getBlood() > 0)
         {
@@ -200,13 +200,14 @@ public class Enemy extends GameEntity {
            {
                Config.pane.getChildren().remove(Config.imgHeart1.getImageView());
                Config.health --;
-               System.out.println("You lose");
+                Config.imgyoulose.show(primaryStage,253,0);
            }
         }
 
-        if(this.isSurvive() == true)
+        if(this.isSurvive())
         {
             GameStage.enemyArrayList.remove(GameStage.enemyArrayList.size()-1);
+            System.out.println(GameStage.enemyArrayList.size());
             this.getimage().remote();
             this.getimage().setImageView(null);
             this.setImage(null);
@@ -216,6 +217,10 @@ public class Enemy extends GameEntity {
             speed = 0;
             armor =0;
             bonus=0;
+        }
+        if(GameStage.enemyArrayList.size() == 0)
+        {
+            Config.imgyouwin.show(primaryStage,253,0);
         }
     }
 

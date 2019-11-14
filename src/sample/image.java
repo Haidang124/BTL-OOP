@@ -14,12 +14,6 @@ import javafx.stage.Stage;
  class image {
     private Image image;
     private ImageView imageView;
-
-
-    /*public image(Image image) {
-        this.image = image;
-    }*/
-
     // Constructor
     public image()
     {

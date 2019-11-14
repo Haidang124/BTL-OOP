@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class Config {
     public static final image imgHeart3 = new image("file:images\\heart.png");
     public static final image imgHeart4 = new image("file:images\\heart.png");
     public static final image imgHeart5 = new image("file:images\\heart.png");
+    public static final image imgyoulose = new image("file:images\\youlose.png");
+    public static final image imgyouwin = new image("file:images\\youwin.png");
+    public static final image imgyouwin1 = new image("file:images\\youwin1.png");
 
     //media
     public static final Media soundBG = new Media(new File("sound\\background.mp3").toURI().toString());
@@ -65,15 +69,22 @@ public class Config {
     public static final int sizeimageEnemy=50;
     public static final  int heigth_amountimage = height_scene/sizeimageMap;
     public static final  int width_amountimage = (width_scene-width_menu)/sizeimageMap;
-//    public static Canvas canvas = new Canvas(width_scene,height_scene);
-//    public static GraphicsContext gc = canvas.getGraphicsContext2D();
+
     public static Pane pane = new Pane();
     public static Pane paneBG = new Pane();
     public static Group group = new Group();
     public static Scene scene = new Scene(pane,Config.width_scene,Config.height_scene);
     public static Scene background = new Scene(paneBG,800,472);
-    public static void turnOnOff()
+    public static void setting(Stage primaryStage)
     {
-
+        Config.imgMenu.show(primaryStage,936,0);
+        Config.imgSound.show(primaryStage,936,0);
+        Config.imgPause.show(primaryStage,990,490);
+        //heart
+        Config.imgHeart1.show(primaryStage,944,370);
+        Config.imgHeart2.show(primaryStage,944+44,370);
+        Config.imgHeart3.show(primaryStage,944+44*2,370);
+        Config.imgHeart4.show(primaryStage,944+44*3,370);
+        Config.imgHeart5.show(primaryStage,944+44*4,370);
     }
 }
