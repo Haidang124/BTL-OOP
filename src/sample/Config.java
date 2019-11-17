@@ -32,7 +32,7 @@ public class Config {
     public static final image imgHeart3 = new image("file:images\\heart.png");
     public static final image imgHeart4 = new image("file:images\\heart.png");
     public static final image imgHeart5 = new image("file:images\\heart.png");
-    public static final image imgyoulose = new image("file:images\\youlose.png");
+    public static final image imgyoulose = new image("file:images\\youlose1.png");
     public static final image imgyouwin = new image("file:images\\youwin.png");
     public static final image imgyouwin1 = new image("file:images\\youwin1.png");
 

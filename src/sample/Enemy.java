@@ -78,45 +78,46 @@ public class Enemy extends GameEntity {
            Timeline timeline = new
                    Timeline(new KeyFrame(Duration.millis(20),
                    (evt)->{
-                       // Tower.addTarget(this);
-                       //System.out.println(Tower.getCount());
-                       try{
-                           health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
-                       }
-                       catch (NullPointerException e) {}
-                       try
+                       if(Config.blPause==false)
                        {
-                           String way = new String();
-                           try {
-                               way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
+                           try{
+                               health.showHealth(stage,image.getImageView().getX(),image.getImageView().getY(),health.getBlood());
                            }
-                           catch (Exception e){}
-                           if(way.equals("right"))
+                           catch (NullPointerException e) {}
+                           try
                            {
-                               image.getImageView().setX(image.getImageView().getX()+1);
-                               if(image.getImageView().getX() >= Config.width_scene-Config.width_menu || health.getBlood() == 0 ) die(stage);
+                               String way = new String();
+                               try {
+                                   way = checkRoad((int)image.getImageView().getX(),(int)image.getImageView().getY(),direction);
+                               }
+                               catch (Exception e){}
+                               if(way.equals("right"))
+                               {
+                                   image.getImageView().setX(image.getImageView().getX()+1);
+                                   if(image.getImageView().getX() >= Config.width_scene-Config.width_menu || health.getBlood() == 0 ) die(stage);
+                               }
+                               if(way.equals("up"))
+                               {
+                                   image.getImageView().setY(image.getImageView().getY()-1);
+                                   if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die(stage);
+                               }
+                               if(way.equals("down"))
+                               {
+                                   image.getImageView().setY(image.getImageView().getY()+1);
+                                   if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die(stage);
+                               }
+                               if(way.equals("left"))
+                               {
+                                   image.getImageView().setX(image.getImageView().getX()-1);
+                                   if(image.getImageView().getX() <0 || health.getBlood() == 0) die(stage);
+                               }
                            }
-                           if(way.equals("up"))
+                           catch (ArrayIndexOutOfBoundsException e)
                            {
-                               image.getImageView().setY(image.getImageView().getY()-1);
-                               if(image.getImageView().getY()-11 < 0 || health.getBlood() == 0) die(stage);
+
                            }
-                           if(way.equals("down"))
-                           {
-                               image.getImageView().setY(image.getImageView().getY()+1);
-                               if(image.getImageView().getY() >= Config.height_scene || health.getBlood() == 0) die(stage);
-                           }
-                           if(way.equals("left"))
-                           {
-                               image.getImageView().setX(image.getImageView().getX()-1);
-                               if(image.getImageView().getX() <0 || health.getBlood() == 0) die(stage);
-                           }
-                       }
-                       catch (ArrayIndexOutOfBoundsException e)
-                       {
 
                        }
-
                    }
            ));
            timeline.setCycleCount(Animation.INDEFINITE);
@@ -201,6 +202,18 @@ public class Enemy extends GameEntity {
                Config.pane.getChildren().remove(Config.imgHeart1.getImageView());
                Config.health --;
                 Config.imgyoulose.show(primaryStage,253,0);
+                Config.blPause=true;
+//                Config.imgyoulose.getImageView().setOnMouseClicked(mouseEvent ->
+//                {
+//                   // System.out.println(mouseEvent.getSceneX()+" "+mouseEvent.getSceneY());
+//                    if(mouseEvent.getSceneY() >= 550 )
+//                    {
+//                        Config.blPause ==false;
+//                        Config.Money=100;
+//                        Config.
+//                        GameStage.StartGame(primaryStage);
+//                    }
+//                });
            }
         }
 

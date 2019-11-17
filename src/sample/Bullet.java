@@ -2,28 +2,49 @@ package sample;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.scene.control.Button;
-import javafx.scene.shape.Circle;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.effect.Light;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.util.Stack;
 
 public class Bullet extends GameEntity {
+    private Circle bullet = new Circle(5);
+    private Line path = new Line();
     private int speed;
     private int dame;
-    private int range;
+    private double range;
+    // getter setter
 
-    public Bullet(image img, int speed, int dame, int range) {
-        this.image = img;
+
+    public Bullet( Color color,int x, int y, Line path, int speed, int dame, double range) {
+        super(null, x, y);
+        bullet.setFill(color);
+        this.path = path;
         this.speed = speed;
         this.dame = dame;
         this.range = range;
     }
 
-    // getter setter
+    public Circle getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(Circle bullet) {
+        this.bullet = bullet;
+    }
+
+    public Line getPath() {
+        return path;
+    }
+
     public int getSpeed() {
         return speed;
     }
@@ -40,371 +61,71 @@ public class Bullet extends GameEntity {
         this.dame = dame;
     }
 
-    public int getRange() {
+    public double getRange() {
         return range;
     }
 
-    public void setRange(int range) {
+    public void setRange(double range) {
         this.range = range;
     }
 
-    // method
-    public boolean shoot(Stage stage, double x, double y, Enemy enemy)
-    {
-        double x_target = enemy.getimage().getImageView().getX();
-        double y_target = enemy.getimage().getImageView().getY();
-       /* double k =Math.abs(x-x_target)/200;
-        image.show(stage,x,y);
-        if(y != y_target) {
-            double angle =Math.abs((x-x_target)/(y-y_target));
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        System.out.println(image.getImageView().getX()+" "+image.getImageView().getY());
-                        if(image.getImageView().getX() < x_target)
-                        {
-                            image.getImageView().setX(image.getImageView().getX()+k);
-                            if(y < y_target) image.getImageView().setY(image.getImageView().getY()+(k/angle));
-                            else if(y > y_target)image.getImageView().setY(image.getImageView().getY()-(k/angle));
-                        }
-                        else if(image.getImageView().getX() > x_target)
-                        {
-                            image.getImageView().setX(image.getImageView().getX()-k);
-                            if(y < y_target) image.getImageView().setY(image.getImageView().getY()+(k/angle));
-                            else if(y > y_target) image.getImageView().setY(image.getImageView().getY()-(k/angle));
-                        }
-                        else {
-                            if(image.getImageView().getY() < y_target) image.getImageView().setY(image.getImageView().getY()+k);
-                            else if(image.getImageView().getY() > y_target) image.getImageView().setY(image.getImageView().getY()-k);
-                        }
-
-                    }
-            ));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-        }
-        else {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(4*Math.sqrt(2)),
-                    (evt)->{
-                        if((Math.round(image.getImageView().getX()*100000)/10000)==x_target && (Math.round(image.getImageView().getY()*100000)/10000)==y_target)  image.remote();
-                        if(image.getImageView().getX() < x_target)  image.getImageView().setX(image.getImageView().getX()+k);
-                        else if(image.getImageView().getX() > x_target)  image.getImageView().setX(image.getImageView().getX()-k);
-                    }
-            ));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-        }
-        System.out.println("dang");*/
-        int k=0;
-        if(x < x_target && y  > y_target) k=9;
-        else if(x < x_target && y  < y_target) k=3;
-        else if(x > x_target && y  > y_target) k=7;
-        else if(x > x_target && y  < y_target) k=1;
-        else if(x == x_target && y  > y_target) k=8;
-        else if(x == x_target && y  < y_target) k=2;
-        else if(x < x_target && y  == y_target) k=6;
-        else if(x > x_target && y  == y_target) k=4;
-        double distance =Math.abs(x-x_target)/150;
-        double angle =Math.abs((x-x_target)/(y-y_target));
-        image.show(stage,x,y);
-        if(k==3)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                            if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) {
-                                image.remote();
-                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                                else enemy.die(stage);
-                                return;
-                            }
-                            image.getImageView().setX(image.getImageView().getX()+distance);
-                            image.getImageView().setY(image.getImageView().getY()+(distance/angle));
-                        }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==9)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()+distance);
-                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==7)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==1)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                        image.getImageView().setY(image.getImageView().getY()+(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==8)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getY() <= y_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setY(image.getImageView().getY()-distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==2)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getY() >= y_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setY(image.getImageView().getY()+distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==6)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getX() >= x_target ) {
-                            image.remote();
-                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-                           else enemy.die(stage);
-
-                        }
-                        image.getImageView().setX(image.getImageView().getX()+distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==4)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getX() <= x_target ) {
-                            image.remote();
-                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
-                            else enemy.die(stage);
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        return false;
+    public void setPath(Line path) {
+        this.path = path;
     }
-    public boolean shoot1(Stage stage, double x, double y,  double x_target, double y_target)
+    public void shoot (Stage stage,Enemy enemy)
     {
-        int k=0;
-        if(x < x_target && y  > y_target) k=9;
-        else if(x < x_target && y  < y_target) k=3;
-        else if(x > x_target && y  > y_target) k=7;
-        else if(x > x_target && y  < y_target) k=1;
-        else if(x == x_target && y  > y_target) k=8;
-        else if(x == x_target && y  < y_target) k=2;
-        else if(x < x_target && y  == y_target) k=6;
-        else if(x > x_target && y  == y_target) k=4;
-        double distance =Math.abs(x-x_target)/150;
-        double angle =Math.abs((x-x_target)/(y-y_target));
-        image.show(stage,x,y);
-        if(k==3)
+        //Line line = new Line(0,0,72,72);
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(300));
+        pathTransition.setNode(bullet);
+        pathTransition.setPath(path);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+        Config.group.getChildren().add(bullet);
+        Timeline timeline = new
+                Timeline(new KeyFrame(Duration.millis(300),
+                (evt)->{
+                    bullet.setFill(Color.TRANSPARENT);
+                }
+        ));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+        if(Config.pane.getChildren().contains(Config.group)==false) Config.pane.getChildren().add(Config.group);
+        stage.setScene(Config.scene);
+        stage.show();
+        if(enemy instanceof NormalEnemy)
         {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                            if(image.getImageView().getX() >= x_target && image.getImageView().getY()  >= y_target ) {
-                                image.remote();
-//                                if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                                else enemy.die();
-                                return;
-                            }
-                            image.getImageView().setX(image.getImageView().getX()+distance);
-                            image.getImageView().setY(image.getImageView().getY()+(distance/angle));
-                        }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
         }
-        else if(k==9)
+        else if (enemy instanceof SmallerEnemy)
         {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() >= x_target && image.getImageView().getY() <= y_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()+distance);
-                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+
         }
-        else if(k==7)
+        else if (enemy instanceof TankerEnemy)
         {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() <= y_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                        image.getImageView().setY(image.getImageView().getY()-(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
+            enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
+
         }
-        else if(k==1)
+        if(enemy.getHealth().getBlood() <= 0)
         {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if(image.getImageView().getX() <= x_target && image.getImageView().getY() >= y_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                        image.getImageView().setY(image.getImageView().getY()+(distance/angle));
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
+            if(enemy instanceof NormalEnemy)
+            {
+                Config.Money+=10;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            else  if( enemy instanceof SmallerEnemy)
+            {
+                Config.Money+=5;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            else if(enemy instanceof TankerEnemy)
+            {
+                Config.Money+=20;
+                Config.labelMoney.setText(Config.Money+"");
+            }
+            enemy.die(stage);
         }
-        else if(k==8)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getY() <= y_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setY(image.getImageView().getY()-distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==2)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getY() >= y_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setY(image.getImageView().getY()+distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==6)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getX() >= x_target ) {
-                            image.remote();
-//                           if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-5);
-//                           else enemy.die();
-                        }
-                        image.getImageView().setX(image.getImageView().getX()+distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        else if(k==4)
-        {
-            Timeline timeline = new
-                    Timeline(new KeyFrame(Duration.millis(3),
-                    (evt)->{
-                        if( image.getImageView().getX() <= x_target ) {
-                            image.remote();
-//                            if(enemy.getHealth().getBlood() != 0) enemy.getHealth().setBlood(enemy.getHealth().getBlood()-10);
-//                            else enemy.die();
-                            return;
-                        }
-                        image.getImageView().setX(image.getImageView().getX()-distance);
-                    }
-            ));
-            timeline.setCycleCount(155);
-            timeline.play();
-        }
-        return false;
     }
 }
-
-
