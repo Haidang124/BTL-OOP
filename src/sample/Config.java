@@ -23,7 +23,7 @@ public class Config {
     public static final image imgNoSound = new image("file:images\\nosound.png");
     public static final image imgPause = new image("file:images\\Pause.png");
     public static final image imgResume = new image("file:images\\Resume.png");
-    public static final image imgMenu = new image("file:images\\menu1.png");
+    public static final image imgMenu = new image("file:images\\menu2.png");
     public static final image imgBuy1 = new image("file:images\\buy1.png");
     public static final image imgBuy2 = new image("file:images\\buy2.png");
     public static final image imgBuy3 = new image("file:images\\buy3.png");
@@ -32,7 +32,7 @@ public class Config {
     public static final image imgHeart3 = new image("file:images\\heart.png");
     public static final image imgHeart4 = new image("file:images\\heart.png");
     public static final image imgHeart5 = new image("file:images\\heart.png");
-    public static final image imgyoulose = new image("file:images\\youlose1.png");
+    public static final image imgyoulose = new image("file:images\\youlose.png");
     public static final image imgyouwin = new image("file:images\\youwin.png");
     public static final image imgyouwin1 = new image("file:images\\youwin1.png");
 

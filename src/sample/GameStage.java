@@ -138,8 +138,10 @@ public class GameStage {
             }
         });
         Config.imgMenu.getImageView().setOnMouseClicked(mouseEvent1 -> {
+            System.out.println(mouseEvent1.getSceneX()+" "+mouseEvent1.getSceneY());
             if(mouseEvent1.getSceneX() >=975 && mouseEvent1.getSceneX() <= 1135 && mouseEvent1.getSceneY() >= 535 && mouseEvent1.getSceneY() <= 570)
             {
+
                 if(Config.blSound==true)
                 {
                     Config.mediaPlayerSL.stop();
@@ -172,6 +174,10 @@ public class GameStage {
                     timeline.setCycleCount(Animation.INDEFINITE);
                     timeline.play();
                 }
+            }
+            else if(mouseEvent1.getSceneX() >=990 && mouseEvent1.getSceneX() <= 1122 && mouseEvent1.getSceneY() >= 592 && mouseEvent1.getSceneY() <= 620)
+            {
+                primaryStage.close();
             }
         });
         Timeline timeline2 = new

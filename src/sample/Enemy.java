@@ -203,17 +203,6 @@ public class Enemy extends GameEntity {
                Config.health --;
                 Config.imgyoulose.show(primaryStage,253,0);
                 Config.blPause=true;
-//                Config.imgyoulose.getImageView().setOnMouseClicked(mouseEvent ->
-//                {
-//                   // System.out.println(mouseEvent.getSceneX()+" "+mouseEvent.getSceneY());
-//                    if(mouseEvent.getSceneY() >= 550 )
-//                    {
-//                        Config.blPause ==false;
-//                        Config.Money=100;
-//                        Config.
-//                        GameStage.StartGame(primaryStage);
-//                    }
-//                });
            }
         }
 
